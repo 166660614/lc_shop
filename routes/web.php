@@ -18,3 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//测试文件上传
+Route::get('/upload','Upload\TestUpload@upload');
+Route::post('/upload/pdf','Upload\TestUpload@uploadpdf');
