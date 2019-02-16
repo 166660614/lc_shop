@@ -12,7 +12,8 @@ class IndexController extends Controller
         $log_str=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
     }
+    //获取扫描人信息
     public function wxToken(){
-        echo $_GET['echostr'];
+        echo '已关注';
     }
 }
