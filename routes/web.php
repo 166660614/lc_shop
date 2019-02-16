@@ -22,3 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 //测试文件上传
 Route::get('/upload','Upload\TestUpload@upload');
 Route::post('/upload/pdf','Upload\TestUpload@uploadpdf');
+//电影
+Route::get('/move/seat','Move\IndexController@index');
+Route::post('/move/order','Move\IndexController@order');
