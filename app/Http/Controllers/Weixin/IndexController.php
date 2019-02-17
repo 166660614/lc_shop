@@ -19,5 +19,9 @@ class IndexController extends Controller
         $log_str=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
     }
+    public function validToken1()
+    {
+        echo $_GET['echostr'];
+    }
     //获取AccessToken
 }
