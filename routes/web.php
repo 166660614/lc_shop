@@ -26,5 +26,7 @@ Route::post('/upload/pdf','Upload\TestUpload@uploadpdf');
 Route::get('/move/seat','Move\IndexController@index');
 Route::post('/move/order','Move\IndexController@order');
 //微信公众号
-Route::get('/weixin/valid','Weixin\IndexController@wxEvent');
-Route::post('/weixin/valid','Weixin\IndexController@wxEvent');
+Route::get('/weixin/valid','Weixin\IndexController@validToken');
+Route::get('/weixin/valid1','Weixin\WeixinController@validToken1');
+Route::post('/weixin/valid','Weixin\IndexController@validToken');
+Route::post('/weixin/valid1','Weixin\WeixinController@wxEvent');//接受微信服务器事件推送
