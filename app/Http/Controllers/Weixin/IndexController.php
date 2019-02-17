@@ -27,7 +27,7 @@ class IndexController extends Controller
             $data=json_decode(file_get_contents($url),true);
             //记录缓存
             $token=$data['access_token'];
-            Redis::set($this->redis_weixin_access_token);
+            Redis::set($this->redis_weixin_access_token,$token);
             Redis::setTimeout($this->redis_weixin_access_token,3600);
         }
         return $token;
