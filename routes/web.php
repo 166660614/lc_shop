@@ -26,5 +26,5 @@ Route::post('/upload/pdf','Upload\TestUpload@uploadpdf');
 Route::get('/move/seat','Move\IndexController@index');
 Route::post('/move/order','Move\IndexController@order');
 //微信公众号
-Route::get('/weixin/valid','Weixin\IndexController@wxToken');
+Route::get('/weixin/valid','Weixin\IndexController@wxEvent');
 Route::post('/weixin/valid','Weixin\IndexController@wxEvent');
