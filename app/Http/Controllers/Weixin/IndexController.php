@@ -13,6 +13,7 @@ class IndexController extends Controller
     //接受微信服务器事件推送
     public function wxEvent(){
         $data = file_get_contents("php://input");
+        var_dump($data);exit;
         $xml=simplexml_load_string($data);
         var_dump($xml);exit;
         $event=$xml->Event;
