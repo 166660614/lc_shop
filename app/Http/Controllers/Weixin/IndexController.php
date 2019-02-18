@@ -13,12 +13,9 @@ class IndexController extends Controller
     //接受微信服务器事件推送
     public function wxEvent(){
         $data = file_get_contents("php://input");
-        //var_dump($data);exit;
-        /*$xml=simplexml_load_string($data);
-        //var_dump($xml);exit;
-        $event=$xml->Event;*/
-        //var_dump($event);exit;
-        /*if($event=='subscribe'){
+        $xml=simplexml_load_string($data);
+        $event=$xml->Event;
+        if($event=='subscribe'){
             $openid=$xml->FromUserName;
             $sub_time=$xml->CreateTime;
             //获取用户信息
@@ -27,7 +24,6 @@ class IndexController extends Controller
             if($userRes){
                 echo "用户已存在";
             }else{
-                echo $user_info['nickname'];exit;
                 $user_data=[
                   'openid'=>$openid,
                   'add_time'=>time(),
@@ -38,7 +34,7 @@ class IndexController extends Controller
                 ];
                 $id=WxModel::insertGetId($user_data);
             }
-        }*/
+        }
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
     }
