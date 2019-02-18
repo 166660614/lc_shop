@@ -23,12 +23,11 @@ class IndexController extends Controller
             $sub_time=$xml->CreateTime;
             //获取用户信息
             $user_info=$this->getUserInfo($openid);
-            //var_dump($user_info);exit;
             $userRes=WxModel::where(['openid'=>$openid])->first();
-            var_dump($userRes);exit;
             if($userRes){
                 echo "用户已存在";
             }else{
+                echo $user_info['nickname'];exit;
                 $user_data=[
                   'openid'=>$openid,
                   'add_time'=>time(),
@@ -37,8 +36,6 @@ class IndexController extends Controller
                     'headimgurl'=>$user_info['headimgurl'],
                     'subscribe_time'=>$sub_time,
                 ];
-                print_r($user_data);exit;
-
                 $id=WxModel::insertGetId($user_data);
             }
         }
