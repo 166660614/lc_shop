@@ -14,11 +14,11 @@ class IndexController extends Controller
     public function wxEvent(){
         $data = file_get_contents("php://input");
         //var_dump($data);exit;
-        $xml=simplexml_load_string($data);
+        /*$xml=simplexml_load_string($data);
         //var_dump($xml);exit;
-        $event=$xml->Event;
+        $event=$xml->Event;*/
         //var_dump($event);exit;
-        if($event=='subscribe'){
+        /*if($event=='subscribe'){
             $openid=$xml->FromUserName;
             $sub_time=$xml->CreateTime;
             //获取用户信息
@@ -38,7 +38,7 @@ class IndexController extends Controller
                 ];
                 $id=WxModel::insertGetId($user_data);
             }
-        }
+        }*/
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
     }
