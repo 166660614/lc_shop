@@ -38,6 +38,7 @@ class IndexController extends Controller
                     'subscribe_time'=>$sub_time,
                 ];
                 print_r($user_data);exit;
+                
                 $id=WxModel::insertGetId($user_data);
                 var_dump($id);
             }
