@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Weixin;
 
+use App\Model\WxModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
@@ -9,15 +10,36 @@ use Illuminate\Support\Facades\Redis;
 class IndexController extends Controller
 {
     protected $redis_weixin_access_token='astr:weixin_access_token';//微信 access_token
-    //接受事件推送
+    //接受微信服务器事件推送
     public function validToken1(){
         $data = file_get_contents("php://input");
+        $xml=simplexml_load_string($data);
+        $event=$xml->Event;
+        if($event=='subscribe'){
+            $openid=$xml->FromUserName;
+            $sub_time=$xml->CreateTime;
+
+            //获取用户信息
+            $user_info=$this->getUserInfo($openid);
+
+            $userRes=WxModel::where(['openid'=>$openid])->first();
+            if($userRes){
+                echo "用户已存在";
+            }else{
+                $user_data=[
+                  'openid'=>$openid,
+                  'add_time'=>time(),
+                    'nickname'=>$user_info['nickname'],
+                    'sex'=>$user_info['sex'],
+                    'headimgurl'=>$user_info['headimgurl'],
+                    'subscribe_time'=>$sub_time,
+                ];
+                $id=WxModel::insertGetId($user_data);
+                var_dump($id);
+            }
+        }
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
-    }
-    public function wxEvent()
-    {
-        echo $_GET['echostr'];
     }
     //获取AccessToken
     public function getAccessToken(){
@@ -33,12 +55,11 @@ class IndexController extends Controller
         return $token;
     }
     // 获取用户信息
-    public function getUserInfo()
+    public function getUserInfo($openid)
     {
-        $openid=$_GET['openid'];
         $access_token = $this->getAccessToken();
         $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
         $data = json_decode(file_get_contents($url),true);
-        echo '<pre>';print_r($data);echo '</pre>';
+        return $data;
     }
 }

@@ -30,4 +30,3 @@ Route::get('/weixin/valid','Weixin\IndexController@validToken');
 Route::post('/weixin/valid','Weixin\IndexController@validToken');
 Route::get('/weixin/valid1','Weixin\IndexController@wxEvent');//接受微信服务器事件推送
 Route::post('/weixin/valid1','Weixin\IndexController@validToken1');
-Route::get('/weixin/userinfo','Weixin\IndexController@getUserInfo');
