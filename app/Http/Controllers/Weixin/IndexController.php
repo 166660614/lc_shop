@@ -22,7 +22,6 @@ class IndexController extends Controller
             //获取用户信息
             $user_info=$this->getUserInfo($openid);
             $userRes=WxModel::where(['openid'=>$openid])->first();
-            var_dump($userRes);exit;
             if($userRes){
                 echo "用户已存在";
             }else{
