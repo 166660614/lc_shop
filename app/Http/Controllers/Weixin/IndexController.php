@@ -18,7 +18,6 @@ class IndexController extends Controller
         if($event=='subscribe'){
             $openid=$xml->FromUserName;
             $sub_time=$xml->CreateTime;
-
             //获取用户信息
             $user_info=$this->getUserInfo($openid);
             $userRes=WxModel::where(['openid'=>$openid])->first();
