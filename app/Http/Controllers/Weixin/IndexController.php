@@ -13,6 +13,9 @@ class IndexController extends Controller
     //接受微信服务器事件推送
     public function wxEvent(){
         $data = file_get_contents("php://input");
+        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
+        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+        exit;
         $xml=simplexml_load_string($data);
         $event=$xml->Event;
         if($event=='subscribe'){
@@ -36,8 +39,6 @@ class IndexController extends Controller
                 var_dump($id);
             }
         }
-        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
-        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
     }
     //获取AccessToken
     public function getAccessToken(){
