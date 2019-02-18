@@ -14,6 +14,7 @@ class IndexController extends Controller
     public function wxEvent(){
         $data = file_get_contents("php://input");
         $xml=simplexml_load_string($data);
+        var_dump($xml);exit;
         $event=$xml->Event;
         if($event=='subscribe'){
             $openid=$xml->FromUserName;
