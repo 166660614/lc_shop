@@ -25,7 +25,7 @@ class IndexController extends Controller
             $user_info=$this->getUserInfo($openid);
             //var_dump($user_info);exit;
             $userRes=WxModel::where(['openid'=>$openid])->first();
-            //var_dump($userRes);exit;
+            var_dump($userRes);exit;
             if($userRes){
                 echo "用户已存在";
             }else{
@@ -38,9 +38,8 @@ class IndexController extends Controller
                     'subscribe_time'=>$sub_time,
                 ];
                 print_r($user_data);exit;
-                
+
                 $id=WxModel::insertGetId($user_data);
-                var_dump($id);
             }
         }
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
