@@ -15,15 +15,23 @@ class IndexController extends Controller
         $data = file_get_contents("php://input");
         $xml=simplexml_load_string($data);
         $event=$xml->Event;
+        $openid=$xml->FromUserName; //用户openid
+        $sub_time=$xml->CreateTime; //关注时间
+        $user_info=$this->getUserInfo($openid);//获取用户信息
         if($event=='subscribe'){
-            $openid=$xml->FromUserName;
-            $sub_time=$xml->CreateTime;
-            //获取用户信息
-            $user_info=$this->getUserInfo($openid);
             $userRes=WxModel::where(['openid'=>$openid])->first();
             if($userRes){
-                echo "用户已存在";
+                //用户已存在;
+                $user_where=['openid'=>$openid];
+                $user_update=[
+                    'nickname'=>$user_info['nickname'],
+                    'sex'=>$user_info['sex'],
+                    'headimgurl'=>$user_info['headimgurl'],
+                    'subscribe_time'=>$sub_time,
+                ];
+                $res=WxModel::where($user_where)->update($user_data);
             }else{
+                //用户不存在
                 $user_data=[
                   'openid'=>$openid,
                   'add_time'=>time(),
