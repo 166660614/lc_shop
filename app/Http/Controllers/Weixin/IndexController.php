@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redis;
 
 class IndexController extends Controller
 {
-    protected $redis_weixin_access_token='str:weixin_access_token';//微信 access_token
+    protected $redis_weixin_access_token='astr:weixin_access_token';//微信 access_token
     //接受事件推送
     public function validToken1(){
         $data = file_get_contents("php://input");
