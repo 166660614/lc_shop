@@ -29,7 +29,7 @@ class IndexController extends Controller
                     'headimgurl'=>$user_info['headimgurl'],
                     'subscribe_time'=>$sub_time,
                 ];
-                $res=WxModel::where($user_where)->update($user_data);
+                $res=WxModel::where($user_where)->update($user_update);
             }else{
                 //用户不存在
                 $user_data=[
