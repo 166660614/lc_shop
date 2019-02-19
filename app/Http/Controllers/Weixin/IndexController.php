@@ -30,6 +30,10 @@ class IndexController extends Controller
                     'subscribe_time'=>$sub_time,
                 ];
                 $res=WxModel::where($user_where)->update($user_update);
+            }elseif($event=='CLICK'){
+                if($xml->EventKey=='kefu01'){
+                    $this->kefu01($openid,$xml->ToUserName);
+                }
             }else{
                 //用户不存在
                 $user_data=[
@@ -45,6 +49,11 @@ class IndexController extends Controller
         }
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+    }
+    //客服处理
+    public function kefu01($openid,$from){
+        $xml_response='<xml> <ToUserName>< ![CDATA['.openid.'] ]></ToUserName> <FromUserName>< ![CDATA['.$from.'] ]></FromUserName> <CreateTime>'.time().'</CreateTime> <MsgType>< ![CDATA[text] ]></MsgType> <Content>< ![CDATA['.'Hello 现在时间是'.date('Y-m-d H:i:s').'] ]></Content> </xml>';
+        echo $xml_response;
     }
     //获取AccessToken
     public function getAccessToken(){
@@ -115,6 +124,11 @@ class IndexController extends Controller
                             'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=1'
                         ]
                     ]
+                ],
+                [
+                    'name'=>'客服服务',
+                    'type'=>'click',
+                    'key'=>'kefu01',
                 ]
             ]
         ];
