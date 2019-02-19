@@ -14,10 +14,20 @@ class IndexController extends Controller
     public function wxEvent(){
         $data = file_get_contents("php://input");
         $xml=simplexml_load_string($data);
+        $MsgType=$xml->MsgType;
         $event=$xml->Event;
         $openid=$xml->FromUserName; //用户openid
         $sub_time=$xml->CreateTime; //关注时间
         $user_info=$this->getUserInfo($openid);//获取用户信息
+
+        if(isset($MsgType)){
+            if($MsgType=='text'){
+                $msg=$xml->Content;
+                $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'您刚才发送的'.$msg.'时间是'.date('Y-m-d H:i:s').']]></Content></xml>';
+                echo $xml_response;
+                exit;
+            }
+        }
         if($event=='subscribe'){
             $userRes=WxModel::where(['openid'=>$openid])->first();
             if($userRes){
