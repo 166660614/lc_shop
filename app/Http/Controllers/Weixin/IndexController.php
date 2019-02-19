@@ -72,9 +72,7 @@ class IndexController extends Controller
         $access_token = $this->getAccessToken();
         $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$access_token;
         //请求微信接口
-        $client = new Client([
-            'base_uri' => $url,
-        ]);
+        $client = new GuzzleHttp\Client(['base_uri' => $url]);
 
         $data=[
           'button'=>[
