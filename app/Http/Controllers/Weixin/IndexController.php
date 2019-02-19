@@ -6,7 +6,7 @@ use App\Model\WxModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
-
+use GuzzleHttp;
 class IndexController extends Controller
 {
     protected $redis_weixin_access_token='astr:weixin_access_token';//微信 access_token
@@ -66,5 +66,35 @@ class IndexController extends Controller
         $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
         $data = json_decode(file_get_contents($url),true);
         return $data;
+    }
+    //自定义菜单
+    public function zdyMenus(){
+        $access_token = $this->getAccessToken();
+        $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$access_token;
+        //请求微信接口
+        $client = new Client([
+            'base_uri' => $url,
+        ]);
+
+        $data=[
+          'button'=>[
+            [
+                'type'=>'view',
+                'name'=>'鑫恒科技',
+                'url'=>'http://www.52self.cn'
+            ]
+          ]
+        ];
+        $r=$client->request('post',$url,['body'=>json_encode($data)]);
+
+        //解析接口返回信息
+        $response_arr=json_decode($r->getBody(),true);
+        if($response_arr['errcode'==0]){
+            echo "菜单创建成功";
+        }else{
+            echo "菜单创建失败，请重试";
+            echo "<br/>";
+            echo $response_arr['errmsg'];
+        }
     }
 }

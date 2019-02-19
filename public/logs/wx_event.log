@@ -139,4 +139,20 @@
 <Event><![CDATA[subscribe]]></Event>
 <EventKey><![CDATA[]]></EventKey>
 </xml>
+<<<<<<<2019-02-18 10:11:29
+<xml><ToUserName><![CDATA[gh_7a714f3a889f]]></ToUserName>
+<FromUserName><![CDATA[oXz456GPeJdpd2yQLl8amJxlSFVI]]></FromUserName>
+<CreateTime>1550475069</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[subscribe]]></Event>
+<EventKey><![CDATA[]]></EventKey>
+</xml>
+<<<<<<<2019-02-18 10:12:05
+<xml><ToUserName><![CDATA[gh_7a714f3a889f]]></ToUserName>
+<FromUserName><![CDATA[oXz456GPeJdpd2yQLl8amJxlSFVI]]></FromUserName>
+<CreateTime>1550475069</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[subscribe]]></Event>
+<EventKey><![CDATA[]]></EventKey>
+</xml>
 <<<<<<<
