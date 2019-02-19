@@ -6,7 +6,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <ul class="nav nav-pills">
-                    <li role="presentation" class="active"><a href=$_SERVER['REQUEST_URI']"/home">首页</a></li>
+                    <li role="presentation" class="active"><a href=@php($_SERVER['REQUEST_URI'])/home">首页</a></li>
                     <li role="presentation"><a href="/weixin/create_menus">菜单管理</a></li>
                 </ul>
                 <div class="panel-body">
