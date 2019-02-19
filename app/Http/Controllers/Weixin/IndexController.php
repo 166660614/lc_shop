@@ -74,20 +74,41 @@ class IndexController extends Controller
         //请求微信接口
         $client = new GuzzleHttp\Client(['base_uri' => $url]);
 
-
         $data=[
           'button'=>[
-            [
-                'name'=>'xinheng',
+              [
+              'name'=>'鑫恒科技',
                 'sub_button'=>[
+                    [
                     'type'=>'view',
-                    'name'=>'home',
-                    'url'=>'http://www.52self.cn'
+                    'name'=>'游戏人生',
+                    'url'=>'http://www.4399.com/'
+                    ],
+                    [
+                      'type'=>'view',
+                      'name'=>'网站首页',
+                      'url'=>'http://www.52self.cn'
+                    ]
                 ]
             ],
-          ]
+              [
+                  'name'=>'一级菜单',
+                  'sub_button'=>[
+                      [
+                          'type'=>'view',
+                          'name'=>'二级菜单',
+                          'url'=>'http://www.4399.com/'
+                      ],
+                      [
+                          'type'=>'view',
+                          'name'=>'二级菜单',
+                          'url'=>'https://www.baidu.com'
+                      ]
+                  ]
+              ]
+         ]
         ];
-        $r=$client->request('post',$url,['body'=>json_encode($data)]);
+        $r=$client->request('post',$url,['body'=>json_encode($data,JSON_UNESCAPED_UNICODE)]);
 
         //解析接口返回信息
         $response_arr=json_decode($r->getBody(),true);
@@ -96,6 +117,68 @@ class IndexController extends Controller
             echo "菜单创建成功";
         }else{
             echo "菜单创建失败，请重试";
+            echo "<br/>";
+            echo $response_arr['errmsg'];
+        }
+    }
+    //删除自定义菜单
+    public function delMenus(){
+        $access_token = $this->getAccessToken();
+        $url='https://api.weixin.qq.com/cgi-bin/menu/delete?access_token='.$access_token;
+        $client = new GuzzleHttp\Client(['base_uri' => $url]);//请求微信接口
+
+        $data=[
+            'button'=>[
+                [
+                    'name'=>'鑫恒科技',
+                    'sub_button'=>[
+                        [
+                            'type'=>'view',
+                            'name'=>'推广海报',
+                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=11'
+                        ],
+                        [
+                            'type'=>'view',
+                            'name'=>'我的下级',
+                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=6'
+                        ],
+                        [
+                            'type'=>'view',
+                            'name'=>'网站首页',
+                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=1'
+                        ]
+                    ]
+                ],
+                [
+                    'name'=>'一级菜单',
+                    'sub_button'=>[
+                        [
+                            'type'=>'view',
+                            'name'=>'二级菜单',
+                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=11'
+                        ],
+                        [
+                            'type'=>'view',
+                            'name'=>'二级菜单',
+                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=6'
+                        ],
+                        [
+                            'type'=>'view',
+                            'name'=>'二级菜单',
+                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=1'
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        $r=$client->request('post',$url,['body'=>json_encode($data,JSON_UNESCAPED_UNICODE)]);
+        //解析接口返回信息
+        $response_arr=json_decode($r->getBody(),true);
+        var_dump($response_arr);
+        if($response_arr['errcode']==0){
+            echo "菜单删除成功";
+        }else{
+            echo "菜单删除失败，请重试";
             echo "<br/>";
             echo $response_arr['errmsg'];
         }

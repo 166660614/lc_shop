@@ -7,7 +7,15 @@
             <div class="panel panel-default">
                 <ul class="nav nav-pills">
                     <li role="presentation" class="active"><a href=@php($_SERVER['REQUEST_URI'])/home>首页</a></li>
-                    <li role="presentation"><a href="/weixin/create_menus">菜单管理</a></li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            菜单管理 <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/weixin/create_menus">创建菜单</a></li>
+                            <li><a href="/weixin/del_menus">删除菜单</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <div class="panel-body">
                     @if (session('status'))
