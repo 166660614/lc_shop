@@ -5,8 +5,10 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">首页</div>
-
+                <ul class="nav nav-pills">
+                    <li role="presentation" class="active"><a href="http://lcshop.com/home">首页</a></li>
+                    <li role="presentation"><a href="/weixin/create_menus">菜单管理</a></li>
+                </ul>
                 <div class="panel-body">
                     @if (session('status'))
                         <div class="alert alert-success">

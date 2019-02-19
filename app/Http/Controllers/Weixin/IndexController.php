@@ -78,9 +78,14 @@ class IndexController extends Controller
         $data=[
           'button'=>[
             [
-                'type'=>'view',
+                'type'=>'click',
                 'name'=>'xinheng',
-                'url'=>'http://www.52self.cn'
+                'key'=>'V1001_XIN_HENG',
+                'sub_button'=>[
+                    'type'=>'view',
+                    'name'=>'home',
+                    'url'=>'http://www.52self.cn',
+                ]
             ]
           ]
         ];
