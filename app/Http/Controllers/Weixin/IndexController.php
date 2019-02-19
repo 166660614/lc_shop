@@ -42,10 +42,11 @@ class IndexController extends Controller
                 ];
                 $id=WxModel::insertGetId($user_data);
             }
-        }elseif($event=='CLICK'){
-            if($xml->EventKey=='kefu01'){
-                $this->kefu01($openid,$xml->ToUserName);
+        }elseif($event=='CLICK') {
+            if ($xml->EventKey == 'kefu01') {
+                $this->kefu01($openid, $xml->ToUserName);
             }
+        }
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
     }
