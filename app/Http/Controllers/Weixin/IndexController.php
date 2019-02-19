@@ -52,7 +52,7 @@ class IndexController extends Controller
     }
     //客服处理
     public function kefu01($openid,$from){
-        $xml_response='<xml> <ToUserName>< ![CDATA['.$openid.'] ]></ToUserName> <FromUserName>< ![CDATA['.$from.'] ]></FromUserName> <CreateTime>'.time().'</CreateTime> <MsgType>< ![CDATA[text] ]></MsgType> <Content>< ![CDATA['.'Hello 现在时间是'.date('Y-m-d H:i:s').'] ]></Content> </xml>';
+        $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$from.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'Hello 现在时间是'.date('Y-m-d H:i:s').']]></Content></xml>';
         echo $xml_response;
     }
     //获取AccessToken
