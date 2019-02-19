@@ -88,7 +88,7 @@ class IndexController extends Controller
 
         //解析接口返回信息
         $response_arr=json_decode($r->getBody(),true);
-        if($response_arr['errcode'==0]){
+        if($response_arr['errcode']==0){
             echo "菜单创建成功";
         }else{
             echo "菜单创建失败，请重试";
