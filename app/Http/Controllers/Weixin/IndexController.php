@@ -75,38 +75,48 @@ class IndexController extends Controller
         $client = new GuzzleHttp\Client(['base_uri' => $url]);
 
         $data=[
-          'button'=>[
-              [
-              'name'=>'鑫恒科技',
-                'sub_button'=>[
-                    [
-                    'type'=>'view',
-                    'name'=>'游戏人生',
-                    'url'=>'http://www.4399.com/'
-                    ],
-                    [
-                      'type'=>'view',
-                      'name'=>'网站首页',
-                      'url'=>'http://www.52self.cn'
+            'button'=>[
+                [
+                    'name'=>'鑫恒科技',
+                    'sub_button'=>[
+                        [
+                            'type'=>'view',
+                            'name'=>'推广海报',
+                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=11'
+                        ],
+                        [
+                            'type'=>'view',
+                            'name'=>'我的下级',
+                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=6'
+                        ],
+                        [
+                            'type'=>'view',
+                            'name'=>'网站首页',
+                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=1'
+                        ]
+                    ]
+                ],
+                [
+                    'name'=>'一级菜单',
+                    'sub_button'=>[
+                        [
+                            'type'=>'view',
+                            'name'=>'二级菜单',
+                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=11'
+                        ],
+                        [
+                            'type'=>'view',
+                            'name'=>'二级菜单',
+                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=6'
+                        ],
+                        [
+                            'type'=>'view',
+                            'name'=>'二级菜单',
+                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=1'
+                        ]
                     ]
                 ]
-            ],
-              [
-                  'name'=>'一级菜单',
-                  'sub_button'=>[
-                      [
-                          'type'=>'view',
-                          'name'=>'二级菜单',
-                          'url'=>'http://www.4399.com/'
-                      ],
-                      [
-                          'type'=>'view',
-                          'name'=>'二级菜单',
-                          'url'=>'https://www.baidu.com'
-                      ]
-                  ]
-              ]
-         ]
+            ]
         ];
         $r=$client->request('post',$url,['body'=>json_encode($data,JSON_UNESCAPED_UNICODE)]);
 
