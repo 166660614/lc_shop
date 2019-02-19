@@ -79,7 +79,7 @@ class IndexController extends Controller
           'button'=>[
             [
                 'type'=>'view',
-                'name'=>'鑫恒科技',
+                'name'=>'xinheng',
                 'url'=>'http://www.52self.cn'
             ]
           ]
