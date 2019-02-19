@@ -78,15 +78,13 @@ class IndexController extends Controller
         $data=[
           'button'=>[
             [
-                'type'=>'click',
                 'name'=>'xinheng',
-                'key'=>'V1001_XIN_HENG',
                 'sub_button'=>[
                     'type'=>'view',
                     'name'=>'home',
-                    'url'=>'http://www.52self.cn',
+                    'url'=>'http://www.52self.cn'
                 ]
-            ]
+            ],
           ]
         ];
         $r=$client->request('post',$url,['body'=>json_encode($data)]);
