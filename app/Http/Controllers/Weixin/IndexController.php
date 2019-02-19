@@ -23,7 +23,7 @@ class IndexController extends Controller
         if(isset($MsgType)){
             if($MsgType=='text'){
                 $msg=$xml->Content;
-                $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'您刚才发送的'.$msg.'时间是'.date('Y-m-d H:i:s').']]></Content></xml>';
+                $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'您刚才发送的消息是  '.$msg.'  发送时间是'.date('Y-m-d H:i:s').']]></Content></xml>';
                 echo $xml_response;
                 exit;
             }
