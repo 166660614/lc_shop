@@ -114,7 +114,7 @@ class IndexController extends Controller
     }
     //图片信息处理
     public function dealWxImg($media_id){
-        $file_name=$this->imgVoiceVideo($param='img',$media_id);
+        $file_name=$this->imgVoiceVideo($param='imag',$media_id);
         return $file_name;
     }
     //处理语音消息

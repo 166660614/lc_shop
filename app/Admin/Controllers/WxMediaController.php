@@ -89,7 +89,7 @@ class WxMediaController extends Controller
         $grid->format('Format');
         $grid->msg_id('Msg id');
         $grid->local_file_name('Local file name')->display(function ($img){
-            return "<img src='http://lcshop.52self.cn/public/wx//public/wx/images/$img/'>";
+            return "<img src='http://lcshop.52self.cn/wx/img/$img/'>";
         });
         $grid->local_file_path('Local file path');
 
