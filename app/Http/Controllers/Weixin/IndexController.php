@@ -78,18 +78,18 @@ class IndexController extends Controller
     }
     //图片信息处理
     public function dealWxImg($media_id){
-        $this->imgVoiceVideo($param='img');
+        $this->imgVoiceVideo($param='img',$media_id);
     }
     //自动回复语音发送的消息
     public function dealWxVoice($media_id){
-        $this->imgVoiceVideo($param='voice');
+        $this->imgVoiceVideo($param='voice',$media_id);
     }
     //自动回复语音发送的消息
     public function dealWxVideo($media_id){
-        $this->imgVoiceVideo($param='video');
+        $this->imgVoiceVideo($param='video',$media_id);
     }
     //保存语音视频图片
-    public function imgVoiceVideo($param){
+    public function imgVoiceVideo($param,$media_id){
         $url='https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getAccessToken().'&media_id='.$media_id;
         //var_dump($url);exit;
         //发送Http请求
