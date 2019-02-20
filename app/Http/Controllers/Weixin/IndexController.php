@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
 use GuzzleHttp;
+use Illuminate\Support\Facades\Storage;
 class IndexController extends Controller
 {
     protected $redis_weixin_access_token='astr:weixin_access_token';//微信 access_token
@@ -25,7 +26,10 @@ class IndexController extends Controller
                 $msg=$xml->Content;
                 $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'您刚才发送的消息是 ：'.$msg.'  发送时间是 ：'.date('Y-m-d H:i:s').']]></Content></xml>';
                 echo $xml_response;
-                exit;
+            }elseif ($MsgType=='image'){
+                $this->dealWxImg($xml->MediaId);
+                $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[image]]></MsgType><Image><MediaId><![CDATA['.str_random(10).'+++'.date('Y-m-d H:i:s').']]></MediaId></Image></xml>';
+                echo $xml_response;
             }
         }
         if($event=='subscribe'){
@@ -64,6 +68,28 @@ class IndexController extends Controller
     public function kefu01($openid,$from){
         $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$from.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'Hello 现在时间是'.date('Y-m-d H:i:s').']]></Content></xml>';
         echo $xml_response;
+    }
+    //图片信息处理
+    public function dealWxImg($media_id){
+        $url='https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getAccessToken().'&media_id='.$media_id;
+        //发送Http请求
+        $client=new GuzzleHttp\Client();
+        $response=$client->get($url);
+
+        //获取文件名
+        $file_info=$response->getHeader('Content-disposition');
+        //var_dump($file_info);exit;
+        $file_name=substr(rtrim($file_info[0],'""'),-20);
+        $wx_image_path='wx/images/'.$file_name;
+
+        //保存图片
+        $res=Storage::disk('local')->put($wx_image_path,$response->getBody());
+        if($res){
+            echo "ok";
+        }else{
+            echo "no";
+        }
+        
     }
     //获取AccessToken
     public function getAccessToken(){
