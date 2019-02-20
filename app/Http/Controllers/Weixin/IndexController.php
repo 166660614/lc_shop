@@ -84,11 +84,11 @@ class IndexController extends Controller
 
         //保存图片
         $res=Storage::disk('local')->put($wx_image_path,$response->getBody());
-        if($res){
-            echo "ok";
-        }else{
-            echo "no";
-        }
+//        if($res){
+//            echo "ok";
+//        }else{
+//            echo "no";
+//        }
         
     }
     //获取AccessToken
