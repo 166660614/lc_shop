@@ -14,6 +14,15 @@
                         <ul class="dropdown-menu">
                             <li><a href="/weixin/create_menus">创建菜单</a></li>
                             <li><a href="/weixin/del_menus">删除菜单</a></li>
+                            <li><a href="/weixin/send_all_content">群发</a></li>
+                        </ul>
+                    </li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            群发管理 <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/weixin/send_all_content">群发文本</a></li>
                         </ul>
                     </li>
                 </ul>
