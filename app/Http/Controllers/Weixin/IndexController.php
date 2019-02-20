@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Storage;
 class IndexController extends Controller
 {
     protected $redis_weixin_access_token='astr:weixin_access_token';//微信 access_token
+
+
+    public function validToken1(){
+        echo $_GET['echostr'];
+    }
     //接受微信服务器事件推送
     public function wxEvent()
     {
