@@ -20,7 +20,6 @@ class IndexController extends Controller
         $openid=$xml->FromUserName; //用户openid
         $sub_time=$xml->CreateTime; //关注时间
         $user_info=$this->getUserInfo($openid);//获取用户信息
-
         if(isset($MsgType)){
             if($MsgType=='text'){
                 $msg=$xml->Content;
@@ -72,18 +71,20 @@ class IndexController extends Controller
     //图片信息处理
     public function dealWxImg($media_id){
         $url='https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getAccessToken().'&media_id='.$media_id;
+        //var_dump($url);exit;
         //发送Http请求
         $client=new GuzzleHttp\Client();
         $response=$client->get($url);
-
         //获取文件名
         $file_info=$response->getHeader('Content-disposition');
         //var_dump($file_info);exit;
-        $file_name=substr(rtrim($file_info[0],'""'),-20);
+        $file_name=substr(rtrim($file_info[0],'"'),-20);
         $wx_image_path='wx/images/'.$file_name;
+        //var_dump($wx_image_path);exit;
 
         //保存图片
         $res=Storage::disk('local')->put($wx_image_path,$response->getBody());
+        //var_dump($res);
         if($res){
 
         }else{
