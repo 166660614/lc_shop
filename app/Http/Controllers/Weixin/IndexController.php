@@ -316,7 +316,7 @@ class IndexController extends Controller
                 'is_to_all'=>true,
             ],
             'text'=>[
-                'content'=>'3组人员请访问这个网址注册一个账号，查看效果图http://lcshop.52self.cn/register'
+                'content'=>'打扰了！'
             ],
             'msgtype'=>'text'
         ];
