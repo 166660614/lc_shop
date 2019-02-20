@@ -271,7 +271,6 @@ class IndexController extends Controller
         $data=[
             'filter'=>[
                 'is_to_all'=>true,
-                'tag_id'=>2
             ],
             'text'=>[
                 'content'=>'3组人员请访问这个网址注册一个账号，查看效果图http://lcshop.52self.cn/register'
