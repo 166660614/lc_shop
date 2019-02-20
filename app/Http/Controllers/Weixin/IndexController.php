@@ -79,7 +79,7 @@ class IndexController extends Controller
         $file_info=$response->getHeader('Content-disposition');
         //var_dump($file_info);exit;
         $file_name=substr(rtrim($file_info[0],'"'),-20);
-        var_dump($file_name);exit;
+        //var_dump($file_name);exit;
         $wx_image_path='wx/images/'.$file_name;
         //var_dump($wx_image_path);exit;
 
