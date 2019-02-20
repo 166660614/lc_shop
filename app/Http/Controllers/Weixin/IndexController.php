@@ -38,7 +38,7 @@ class IndexController extends Controller
                     'msg_id'=>$xml->MsgId,
                     'local_file_name'=>$file_name
                 ];
-                $m_id = WeixinMedia::insertGetId($data);
+                $m_id = WxMediaModel::insertGetId($data);
                 var_dump($m_id);
                 $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '时间是 ：' . date('Y-m-d H:i:s') . ']]></Content></xml>';
                 echo $xml_response;

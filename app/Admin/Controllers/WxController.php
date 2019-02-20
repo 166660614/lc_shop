@@ -101,7 +101,7 @@ class WxController extends Controller
             return $asex;
         });
         $grid->headimgurl('Headimgurl')->display(function ($img){
-            return "<img src='$img''>";
+            return "<img src='$img'>";
         });
         $grid->subscribe_time('Subscribe time')->display(function ($time){
             return date('Y-m-d H:i:s',$time);
