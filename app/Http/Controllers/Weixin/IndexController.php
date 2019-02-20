@@ -314,9 +314,10 @@ class IndexController extends Controller
         $data=[
             'filter'=>[
                 'is_to_all'=>true,
+                ''
             ],
             'text'=>[
-                'content'=>'打扰了！'
+                'content'=>'打扰了！2ddd'
             ],
             'msgtype'=>'text'
         ];
