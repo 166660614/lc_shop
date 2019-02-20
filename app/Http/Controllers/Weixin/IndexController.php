@@ -33,39 +33,41 @@ class IndexController extends Controller
                 $this->dealWxVoice($xml->MediaId);
                 $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'时间是 ：'.date('Y-m-d H:i:s').']]></Content></xml>';
                 echo $xml_response;
-            }elseif($MsgType='video'){
+            }elseif($MsgType='event'){
+                if($event=='subscribe'){
+                    $userRes=WxModel::where(['openid'=>$openid])->first();
+                    if($userRes){
+                        //用户已存在;
+                        $user_where=['openid'=>$openid];
+                        $user_update=[
+                            'nickname'=>$user_info['nickname'],
+                            'sex'=>$user_info['sex'],
+                            'headimgurl'=>$user_info['headimgurl'],
+                            'subscribe_time'=>$sub_time,
+                        ];
+                        $res=WxModel::where($user_where)->update($user_update);
+                    }else{
+                        //用户不存在
+                        $user_data=[
+                            'openid'=>$openid,
+                            'add_time'=>time(),
+                            'nickname'=>$user_info['nickname'],
+                            'sex'=>$user_info['sex'],
+                            'headimgurl'=>$user_info['headimgurl'],
+                            'subscribe_time'=>$sub_time,
+                        ];
+                        $id=WxModel::insertGetId($user_data);
+                    }
+                }elseif($event=='CLICK') {
+                    if ($xml->EventKey == 'kefu01') {
+                        //echo 1;exit;
+                        $this->kefu01($openid, $xml->ToUserName);
+                    }
+                }
+            }elseif ($MsgType=='event'){
                 $this->dealWxVideo($xml->MediaId);
                 $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'时间是 ：'.date('Y-m-d H:i:s').']]></Content></xml>';
                 echo $xml_response;
-            }
-        }
-        if($event=='subscribe'){
-            $userRes=WxModel::where(['openid'=>$openid])->first();
-            if($userRes){
-                //用户已存在;
-                $user_where=['openid'=>$openid];
-                $user_update=[
-                    'nickname'=>$user_info['nickname'],
-                    'sex'=>$user_info['sex'],
-                    'headimgurl'=>$user_info['headimgurl'],
-                    'subscribe_time'=>$sub_time,
-                ];
-                $res=WxModel::where($user_where)->update($user_update);
-            }else{
-                //用户不存在
-                $user_data=[
-                  'openid'=>$openid,
-                  'add_time'=>time(),
-                    'nickname'=>$user_info['nickname'],
-                    'sex'=>$user_info['sex'],
-                    'headimgurl'=>$user_info['headimgurl'],
-                    'subscribe_time'=>$sub_time,
-                ];
-                $id=WxModel::insertGetId($user_data);
-            }
-        }elseif($event=='CLICK') {
-            if ($xml->EventKey == 'kefu01') {
-                $this->kefu01($openid, $xml->ToUserName);
             }
         }
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
@@ -91,7 +93,6 @@ class IndexController extends Controller
     //保存语音视频图片
     public function imgVoiceVideo($param,$media_id){
         $url='https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getAccessToken().'&media_id='.$media_id;
-        //var_dump($url);exit;
         //发送Http请求
         $client=new GuzzleHttp\Client();
         $response=$client->get($url);
@@ -273,7 +274,7 @@ class IndexController extends Controller
                 'tag_id'=>2
             ],
             'text'=>[
-                'content'=>''
+                'content'=>'3组人员请访问这个网址注册一个账号，查看效果图http://lcshop.52self.cn/register'
             ],
             'msgtype'=>'text'
         ];

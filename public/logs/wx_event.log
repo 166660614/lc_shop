@@ -295,4 +295,20 @@
 <Content><![CDATA[ksksk ]]></Content>
 <MsgId>22199692777918171</MsgId>
 </xml>
+<<<<<<<2019-02-20 06:40:53
+<xml><ToUserName><![CDATA[gh_7a714f3a889f]]></ToUserName>
+276 <FromUserName><![CDATA[oXz456GPeJdpd2yQLl8amJxlSFVI]]></FromUserName>
+277 <CreateTime>1550630511</CreateTime>
+278 <MsgType><![CDATA[event]]></MsgType>
+279 <Event><![CDATA[CLICK]]></Event>
+280 <EventKey><![CDATA[kefu01]]></EventKey>
+281 </xml>
+<<<<<<<2019-02-20 06:41:08
+<xml><ToUserName><![CDATA[gh_7a714f3a889f]]></ToUserName>
+276 <FromUserName><![CDATA[oXz456GPeJdpd2yQLl8amJxlSFVI]]></FromUserName>
+277 <CreateTime>1550630511</CreateTime>
+278 <MsgType><![CDATA[event]]></MsgType>
+279 <Event><![CDATA[CLICK]]></Event>
+280 <EventKey><![CDATA[kefu01]]></EventKey>
+281 </xml>
 <<<<<<<
