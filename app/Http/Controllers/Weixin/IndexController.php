@@ -12,66 +12,66 @@ class IndexController extends Controller
 {
     protected $redis_weixin_access_token='astr:weixin_access_token';//微信 access_token
     //接受微信服务器事件推送
-    public function wxEvent(){
+    public function wxEvent()
+    {
         $data = file_get_contents("php://input");
-        $xml=simplexml_load_string($data);
-        $MsgType=$xml->MsgType;
-        $event=$xml->Event;
-        $openid=$xml->FromUserName; //用户openid
-        $sub_time=$xml->CreateTime; //关注时间
-        $user_info=$this->getUserInfo($openid);//获取用户信息
-        if(isset($MsgType)){
-            if($MsgType=='text'){
-                $msg=$xml->Content;
-                $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'您刚才发送的消息是 ：'.$msg.'  发送时间是 ：'.date('Y-m-d H:i:s').']]></Content></xml>';
+        $xml = simplexml_load_string($data);
+        $MsgType = $xml->MsgType;
+        $event = $xml->Event;
+        $openid = $xml->FromUserName; //用户openid
+        $sub_time = $xml->CreateTime; //关注时间
+        $user_info = $this->getUserInfo($openid);//获取用户信息
+        if (isset($MsgType)) {
+            if ($MsgType == 'text') {
+                $msg = $xml->Content;
+                $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '您刚才发送的消息是 ：' . $msg . '  发送时间是 ：' . date('Y-m-d H:i:s') . ']]></Content></xml>';
                 echo $xml_response;
-            }elseif($MsgType=='image'){
+            } elseif ($MsgType == 'image') {
                 $this->dealWxImg($xml->MediaId);
-                $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'时间是 ：'.date('Y-m-d H:i:s').']]></Content></xml>';
+                $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '时间是 ：' . date('Y-m-d H:i:s') . ']]></Content></xml>';
                 echo $xml_response;
-            }elseif($MsgType=='voice'){
+            } elseif ($MsgType == 'voice') {
                 $this->dealWxVoice($xml->MediaId);
-                $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'时间是 ：'.date('Y-m-d H:i:s').']]></Content></xml>';
+                $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '时间是 ：' . date('Y-m-d H:i:s') . ']]></Content></xml>';
                 echo $xml_response;
-            }elseif($MsgType='event'){
-                if($event=='subscribe'){
-                    $userRes=WxModel::where(['openid'=>$openid])->first();
-                    if($userRes){
+            } elseif ($MsgType == 'event') {
+                if ($event == 'subscribe') {
+                    $userRes = WxModel::where(['openid' => $openid])->first();
+                    if ($userRes) {
                         //用户已存在;
-                        $user_where=['openid'=>$openid];
-                        $user_update=[
-                            'nickname'=>$user_info['nickname'],
-                            'sex'=>$user_info['sex'],
-                            'headimgurl'=>$user_info['headimgurl'],
-                            'subscribe_time'=>$sub_time,
+                        $user_where = ['openid' => $openid];
+                        $user_update = [
+                            'nickname' => $user_info['nickname'],
+                            'sex' => $user_info['sex'],
+                            'headimgurl' => $user_info['headimgurl'],
+                            'subscribe_time' => $sub_time,
                         ];
-                        $res=WxModel::where($user_where)->update($user_update);
-                    }else{
+                        $res = WxModel::where($user_where)->update($user_update);
+                    } else {
                         //用户不存在
-                        $user_data=[
-                            'openid'=>$openid,
-                            'add_time'=>time(),
-                            'nickname'=>$user_info['nickname'],
-                            'sex'=>$user_info['sex'],
-                            'headimgurl'=>$user_info['headimgurl'],
-                            'subscribe_time'=>$sub_time,
+                        $user_data = [
+                            'openid' => $openid,
+                            'add_time' => time(),
+                            'nickname' => $user_info['nickname'],
+                            'sex' => $user_info['sex'],
+                            'headimgurl' => $user_info['headimgurl'],
+                            'subscribe_time' => $sub_time,
                         ];
-                        $id=WxModel::insertGetId($user_data);
+                        $id = WxModel::insertGetId($user_data);
                     }
-                }elseif($event=='CLICK') {
+                } elseif ($event == 'CLICK') {
                     if ($xml->EventKey == 'kefu01') {
-                        //echo 1;exit;
                         $this->kefu01($openid, $xml->ToUserName);
                     }
                 }
-            }elseif ($MsgType=='event'){
+            } elseif ($MsgType=='video') {
                 $this->dealWxVideo($xml->MediaId);
-                $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'时间是 ：'.date('Y-m-d H:i:s').']]></Content></xml>';
+                $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '时间是 ：' . date('Y-m-d H:i:s') . ']]></Content></xml>';
                 echo $xml_response;
             }
         }
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
-        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+        file_put_contents('logs/wx_event.log', $log_str, FILE_APPEND);
     }
     //客服处理
     public function kefu01($openid,$from){
