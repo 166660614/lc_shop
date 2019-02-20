@@ -26,9 +26,9 @@ class IndexController extends Controller
                 $msg=$xml->Content;
                 $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'您刚才发送的消息是 ：'.$msg.'  发送时间是 ：'.date('Y-m-d H:i:s').']]></Content></xml>';
                 echo $xml_response;
-            }elseif ($MsgType=='image'){
+            }elseif($MsgType=='image'){
                 $this->dealWxImg($xml->MediaId);
-                $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Image><MediaId><![CDATA['.str_random(10).'+++'.date('Y-m-d H:i:s').']]></MediaId></Image></xml>';
+                $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'时间是 ：'.date('Y-m-d H:i:s').']]></Content></xml>';
                 echo $xml_response;
             }
         }
@@ -84,11 +84,11 @@ class IndexController extends Controller
 
         //保存图片
         $res=Storage::disk('local')->put($wx_image_path,$response->getBody());
-//        if($res){
-//            echo "ok";
-//        }else{
-//            echo "no";
-//        }
+        if($res){
+
+        }else{
+
+        }
         
     }
     //获取AccessToken
