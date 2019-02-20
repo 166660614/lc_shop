@@ -28,7 +28,7 @@ class IndexController extends Controller
                 echo $xml_response;
             }elseif ($MsgType=='image'){
                 $this->dealWxImg($xml->MediaId);
-                $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[image]]></MsgType><Image><MediaId><![CDATA['.str_random(10).'+++'.date('Y-m-d H:i:s').']]></MediaId></Image></xml>';
+                $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Image><MediaId><![CDATA['.str_random(10).'+++'.date('Y-m-d H:i:s').']]></MediaId></Image></xml>';
                 echo $xml_response;
             }
         }
