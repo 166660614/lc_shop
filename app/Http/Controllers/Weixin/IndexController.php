@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
 use GuzzleHttp;
+use App\Model\WxMediaModel;
 use Illuminate\Support\Facades\Storage;
 class IndexController extends Controller
 {
@@ -14,8 +15,8 @@ class IndexController extends Controller
     //接受微信服务器事件推送
     public function wxEvent()
     {
-        $data = file_get_contents("php://input");
-        $xml = simplexml_load_string($data);
+        $postdata = file_get_contents("php://input");
+        $xml = simplexml_load_string($postdata);
         $MsgType = $xml->MsgType;
         $event = $xml->Event;
         $openid = $xml->FromUserName; //用户openid
@@ -27,11 +28,33 @@ class IndexController extends Controller
                 $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '您刚才发送的消息是 ：' . $msg . '  发送时间是 ：' . date('Y-m-d H:i:s') . ']]></Content></xml>';
                 echo $xml_response;
             } elseif ($MsgType == 'image') {
-                $this->dealWxImg($xml->MediaId);
+                $file_name=$this->dealWxImg($xml->MediaId);
+                $data=[
+                    'openid'=>$openid,
+                    'add_time'=>time(),
+                    'msg_type'=>$MsgType,
+                    'media_id'=>$xml->MediaId,
+                    'format'=>$xml->Format,
+                    'msg_id'=>$xml->MsgId,
+                    'local_file_name'=>$file_name
+                ];
+                $m_id = WeixinMedia::insertGetId($data);
+                var_dump($m_id);
                 $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '时间是 ：' . date('Y-m-d H:i:s') . ']]></Content></xml>';
                 echo $xml_response;
             } elseif ($MsgType == 'voice') {
-                $this->dealWxVoice($xml->MediaId);
+                $file_name=$this->dealWxVoice($xml->MediaId);
+                $data=[
+                    'openid'=>$openid,
+                    'add_time'=>time(),
+                    'msg_type'=>$MsgType,
+                    'media_id'=>$xml->MediaId,
+                    'format'=>$xml->Format,
+                    'msg_id'=>$xml->MsgId,
+                    'local_file_name'=>$file_name
+                ];
+                $m_id = WxMediaModel::insertGetId($data);
+                var_dump($m_id);
                 $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '时间是 ：' . date('Y-m-d H:i:s') . ']]></Content></xml>';
                 echo $xml_response;
             } elseif ($MsgType == 'event') {
@@ -46,7 +69,7 @@ class IndexController extends Controller
                             'headimgurl' => $user_info['headimgurl'],
                             'subscribe_time' => $sub_time,
                         ];
-                        $res = WxModel::where($user_where)->update($user_update);
+                        $res = WxMediaModel::where($user_where)->update($user_update);
                     } else {
                         //用户不存在
                         $user_data = [
@@ -65,12 +88,23 @@ class IndexController extends Controller
                     }
                 }
             } elseif ($MsgType=='video') {
-                $this->dealWxVideo($xml->MediaId);
+                $file_name=$this->dealWxVideo($xml->MediaId);
+                $data=[
+                    'openid'=>$openid,
+                    'add_time'=>time(),
+                    'msg_type'=>$MsgType,
+                    'media_id'=>$xml->MediaId,
+                    'format'=>$xml->Format,
+                    'msg_id'=>$xml->MsgId,
+                    'local_file_name'=>$file_name
+                ];
+                $m_id = WxMediaModel::insertGetId($data);
+                var_dump($m_id);
                 $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '时间是 ：' . date('Y-m-d H:i:s') . ']]></Content></xml>';
                 echo $xml_response;
             }
         }
-        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
+        $log_str = date('Y-m-d H:i:s') . "\n" . $postdata . "\n<<<<<<<";
         file_put_contents('logs/wx_event.log', $log_str, FILE_APPEND);
     }
     //客服处理
@@ -80,15 +114,18 @@ class IndexController extends Controller
     }
     //图片信息处理
     public function dealWxImg($media_id){
-        $this->imgVoiceVideo($param='img',$media_id);
+        $file_name=$this->imgVoiceVideo($param='img',$media_id);
+        return $file_name;
     }
     //处理语音消息
     public function dealWxVoice($media_id){
-        $this->imgVoiceVideo($param='voice',$media_id);
+        $file_name=$this->imgVoiceVideo($param='voice',$media_id);
+        return $file_name;
     }
     //处理视频消息
     public function dealWxVideo($media_id){
-        $this->imgVoiceVideo($param='video',$media_id);
+        $file_name=$this->imgVoiceVideo($param='video',$media_id);
+        return $file_name;
     }
     //保存语音视频图片
     public function imgVoiceVideo($param,$media_id){
@@ -110,6 +147,7 @@ class IndexController extends Controller
         }else{
 
         }
+        return $file_name;
     }
     //获取AccessToken
     public function getAccessToken(){

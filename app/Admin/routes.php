@@ -12,5 +12,6 @@ Route::group([
 
     $router->get('/', 'HomeController@index');
     $router->get('/weixin/userinfo', 'WxController@index');
+    $router->get('/weixin/media', 'WxMediaController@index');
 
 });

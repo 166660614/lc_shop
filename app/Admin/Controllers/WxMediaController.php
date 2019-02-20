@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Model\WxModel;
+use App\Model\WxMediaModel;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -10,7 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
-class WxController extends Controller
+class WxMediaController extends Controller
 {
     use HasResourceActions;
 
@@ -39,7 +39,7 @@ class WxController extends Controller
     {
         return $content
             ->header('Detail')
-            ->description('gdescription')
+            ->description('description')
             ->body($this->detail($id));
     }
 
@@ -79,33 +79,17 @@ class WxController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new WxModel);
+        $grid = new Grid(new WxMediaModel);
 
-        $grid->id('Id')->display(function ($id){
-            return '100'.$id;
-        });
-        $grid->uid('Uid');
-        $grid->nickname('Nickname');
+        $grid->id('Id');
         $grid->openid('Openid');
-        $grid->add_time('Add time')->display(function ($time){
-            return date('Y-m-d H:i:s',$time);
-        });
-        $grid->sex('Sex')->display(function ($sex){
-            if($sex==0){
-                $asex='未知';
-            }elseif($sex==1){
-                $asex='男';
-            }else{
-                $asex='女';
-            }
-            return $asex;
-        });
-        $grid->headimgurl('Headimgurl')->display(function ($img){
-            return "<img src='$img''>";
-        });
-        $grid->subscribe_time('Subscribe time')->display(function ($time){
-            return date('Y-m-d H:i:s',$time);
-        });;
+        $grid->add_time('Add time');
+        $grid->msg_type('Msg type');
+        $grid->media_id('Media id');
+        $grid->format('Format');
+        $grid->msg_id('Msg id');
+        $grid->local_file_name('Local file name');
+        $grid->local_file_path('Local file path');
 
         return $grid;
     }
@@ -118,16 +102,17 @@ class WxController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(WxModel::findOrFail($id));
+        $show = new Show(WxMediaModel::findOrFail($id));
 
         $show->id('Id');
-        $show->uid('Uid');
-        $show->nickname('Nickname');
         $show->openid('Openid');
         $show->add_time('Add time');
-        $show->sex('Sex');
-        $show->headimgurl('Headimgurl');
-        $show->subscribe_time('Subscribe time');
+        $show->msg_type('Msg type');
+        $show->media_id('Media id');
+        $show->format('Format');
+        $show->msg_id('Msg id');
+        $show->local_file_name('Local file name');
+        $show->local_file_path('Local file path');
 
         return $show;
     }
@@ -139,15 +124,16 @@ class WxController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new WxModel);
+        $form = new Form(new WxMediaModel);
 
-        $form->number('uid', 'Uid');
-        $form->text('nickname', 'Nickname');
         $form->text('openid', 'Openid');
         $form->number('add_time', 'Add time');
-        $form->switch('sex', 'Sex');
-        $form->text('headimgurl', 'Headimgurl');
-        $form->number('subscribe_time', 'Subscribe time');
+        $form->text('msg_type', 'Msg type');
+        $form->text('media_id', 'Media id');
+        $form->text('format', 'Format');
+        $form->text('msg_id', 'Msg id');
+        $form->text('local_file_name', 'Local file name');
+        $form->text('local_file_path', 'Local file path');
 
         return $form;
     }
