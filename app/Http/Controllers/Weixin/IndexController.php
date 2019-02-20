@@ -29,6 +29,14 @@ class IndexController extends Controller
                 $this->dealWxImg($xml->MediaId);
                 $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'时间是 ：'.date('Y-m-d H:i:s').']]></Content></xml>';
                 echo $xml_response;
+            }elseif($MsgType=='voice'){
+                $this->dealWxVoice($xml->MediaId);
+                $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'时间是 ：'.date('Y-m-d H:i:s').']]></Content></xml>';
+                echo $xml_response;
+            }elseif($MsgType='video'){
+                $this->dealWxVideo($xml->MediaId);
+                $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'时间是 ：'.date('Y-m-d H:i:s').']]></Content></xml>';
+                echo $xml_response;
             }
         }
         if($event=='subscribe'){
@@ -70,6 +78,18 @@ class IndexController extends Controller
     }
     //图片信息处理
     public function dealWxImg($media_id){
+        $this->imgVoiceVideo($param='img');
+    }
+    //自动回复语音发送的消息
+    public function dealWxVoice($media_id){
+        $this->imgVoiceVideo($param='voice');
+    }
+    //自动回复语音发送的消息
+    public function dealWxVideo($media_id){
+        $this->imgVoiceVideo($param='video');
+    }
+    //保存语音视频图片
+    public function imgVoiceVideo($param){
         $url='https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getAccessToken().'&media_id='.$media_id;
         //var_dump($url);exit;
         //发送Http请求
@@ -80,18 +100,15 @@ class IndexController extends Controller
         //var_dump($file_info);exit;
         $file_name=substr(rtrim($file_info[0],'"'),-20);
         //var_dump($file_name);exit;
-        $wx_image_path='wx/images/'.$file_name;
+        $wx_image_path='wx/'.$param.'/'.$file_name;
         //var_dump($wx_image_path);exit;
-
-        //保存图片
+        //保存语音文件
         $res=Storage::disk('local')->put($wx_image_path,$response->getBody());
-        //var_dump($res);
         if($res){
 
         }else{
 
         }
-        
     }
     //获取AccessToken
     public function getAccessToken(){
