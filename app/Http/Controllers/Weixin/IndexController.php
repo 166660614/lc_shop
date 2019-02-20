@@ -80,11 +80,11 @@ class IndexController extends Controller
     public function dealWxImg($media_id){
         $this->imgVoiceVideo($param='img',$media_id);
     }
-    //自动回复语音发送的消息
+    //处理语音消息
     public function dealWxVoice($media_id){
         $this->imgVoiceVideo($param='voice',$media_id);
     }
-    //自动回复语音发送的消息
+    //处理视频消息
     public function dealWxVideo($media_id){
         $this->imgVoiceVideo($param='video',$media_id);
     }
@@ -197,7 +197,6 @@ class IndexController extends Controller
         }else{
             echo "菜单创建失败，请重试";
             echo "<br/>";
-            echo $response_arr['errmsg'];
         }
     }
     //删除自定义菜单
@@ -261,5 +260,33 @@ class IndexController extends Controller
             echo "<br/>";
             echo $response_arr['errmsg'];
         }
+    }
+    //群发文本消息
+    public function sendTextAll(){
+        $url='https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->getAccessToken();
+
+        //请求微信接口
+        $client = new GuzzleHttp\Client(['base_uri' => $url]);
+        $data=[
+            'filter'=>[
+                'is_to_all'=>false,
+                'tag_id'=>2
+            ],
+            'text'=>[
+                'content'=>'3组群发成功，欧耶！'
+            ],
+            'msgtype'=>'text'
+        ];
+        $r=$client->request('post',$url,['body'=>json_encode($data,JSON_UNESCAPED_UNICODE)]);
+        //解析接口返回信息
+        $response_arr=json_decode($r->getBody(),true);
+        var_dump($response_arr);
+        if($response_arr['errcode']==0){
+            echo "群发成功";
+        }else{
+            echo "群发失败，请重试";
+            echo "<br/>";
+        }
+
     }
 }
