@@ -14,5 +14,5 @@ Route::group([
     $router->resource('/weixin/userinfo', WxController::class);
     $router->resource('/weixin/media', WxMediaController::class);
     $router->resource('/weixin/send', WxSendController::class);
-
+    $router->post('/weixin/send', 'WxSendController@send');
 });
