@@ -137,7 +137,6 @@ class IndexController extends Controller
         $url='https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getAccessToken().'&media_id='.$media_id;
         //发送Http请求
         $client=new GuzzleHttp\Client();
-        var_dump($client);exit;
         $response=$client->get($url);
         //var_dump($response);exit;
         //获取文件名
