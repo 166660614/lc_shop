@@ -29,7 +29,7 @@ class IndexController extends Controller
         $sub_time = $xml->CreateTime; //关注时间
         $user_info = $this->getUserInfo($openid);//获取用户信息
         var_dump($user_info);exit;
-        if (isset($MsgType)) {
+        /*if (isset($MsgType)) {
             if ($MsgType == 'text') {
                 $msg = $xml->Content;
                 $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '您刚才发送的消息是 ：' . $msg . '  发送时间是 ：' . date('Y-m-d H:i:s') . ']]></Content></xml>';
@@ -112,7 +112,7 @@ class IndexController extends Controller
             }
         }
         $log_str = date('Y-m-d H:i:s') . "\n" . $postdata . "\n<<<<<<<";
-        file_put_contents('logs/wx_event.log', $log_str, FILE_APPEND);
+        file_put_contents('logs/wx_event.log', $log_str, FILE_APPEND);*/
     }
     //客服处理
     public function kefu01($openid,$from){
