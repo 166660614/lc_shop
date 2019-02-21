@@ -11,7 +11,8 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index');
-    $router->get('/weixin/userinfo', 'WxController@index');
-    $router->get('/weixin/media', 'WxMediaController@index');
+    $router->resource('/weixin/userinfo', WxController::class);
+    $router->resource('/weixin/media', WxMediaController::class);
+    $router->resource('/weixin/send', WxSendController::class);
 
 });

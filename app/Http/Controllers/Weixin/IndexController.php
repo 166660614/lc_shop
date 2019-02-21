@@ -190,38 +190,38 @@ class IndexController extends Controller
                     'sub_button'=>[
                         [
                             'type'=>'view',
-                            'name'=>'推广海报',
-                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=11'
+                            'name'=>'我要登录',
+                            'url'=>'http://lcshop.52self.cn/login'
                         ],
                         [
                             'type'=>'view',
-                            'name'=>'我的下级',
-                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=6'
+                            'name'=>'注册账号',
+                            'url'=>'http://lcshop.52self.cn/register'
                         ],
                         [
                             'type'=>'view',
                             'name'=>'网站首页',
-                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=1'
+                            'url'=>'http://lcshop.52self.cn'
                         ]
                     ]
                 ],
                 [
-                    'name'=>'一级菜单',
+                    'name'=>'鑫恒科技',
                     'sub_button'=>[
                         [
                             'type'=>'view',
                             'name'=>'二级菜单',
-                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=11'
+                            'url'=>'http://lcshop.52self.cn/login'
                         ],
                         [
                             'type'=>'view',
                             'name'=>'二级菜单',
-                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=6'
+                            'url'=>'http://lcshop.52self.cn/register'
                         ],
                         [
                             'type'=>'view',
-                            'name'=>'二级菜单',
-                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=1'
+                            'name'=>'一级菜单',
+                            'url'=>'http://lcshop.52self.cn'
                         ]
                     ]
                 ],
@@ -257,40 +257,45 @@ class IndexController extends Controller
                     'sub_button'=>[
                         [
                             'type'=>'view',
-                            'name'=>'推广海报',
-                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=11'
+                            'name'=>'我要登录',
+                            'url'=>'http://lcshop.52self.cn/login'
                         ],
                         [
                             'type'=>'view',
-                            'name'=>'我的下级',
-                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=6'
+                            'name'=>'注册账号',
+                            'url'=>'http://lcshop.52self.cn/register'
                         ],
                         [
                             'type'=>'view',
                             'name'=>'网站首页',
-                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=1'
+                            'url'=>'http://lcshop.52self.cn'
                         ]
                     ]
                 ],
                 [
-                    'name'=>'一级菜单',
+                    'name'=>'鑫恒科技',
                     'sub_button'=>[
                         [
                             'type'=>'view',
                             'name'=>'二级菜单',
-                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=11'
+                            'url'=>'http://lcshop.52self.cn/login'
                         ],
                         [
                             'type'=>'view',
                             'name'=>'二级菜单',
-                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=6'
+                            'url'=>'http://lcshop.52self.cn/register'
                         ],
                         [
                             'type'=>'view',
-                            'name'=>'二级菜单',
-                            'url'=>'http://www.52self.cn/app/./index.php?i=2&c=entry&eid=1'
+                            'name'=>'一级菜单',
+                            'url'=>'http://lcshop.52self.cn'
                         ]
                     ]
+                ],
+                [
+                    'name'=>'客服服务',
+                    'type'=>'click',
+                    'key'=>'kefu01',
                 ]
             ]
         ];
