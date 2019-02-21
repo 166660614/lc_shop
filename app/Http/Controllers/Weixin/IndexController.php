@@ -21,7 +21,7 @@ class IndexController extends Controller
     public function wxEvent()
     {
         $postdata = file_get_contents("php://input");
-        $xml = simplexml_load_string($postdata);
+        /*$xml = simplexml_load_string($postdata);
         $MsgType = $xml->MsgType;
         $event = $xml->Event;
         $openid = $xml->FromUserName; //用户openid
@@ -108,7 +108,7 @@ class IndexController extends Controller
                 $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '时间是 ：' . date('Y-m-d H:i:s') . ']]></Content></xml>';
                 echo $xml_response;
             }
-        }
+        }*/
         $log_str = date('Y-m-d H:i:s') . "\n" . $postdata . "\n<<<<<<<";
         file_put_contents('logs/wx_event.log', $log_str, FILE_APPEND);
     }
