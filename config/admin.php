@@ -115,6 +115,15 @@ return [
                 'model'  => Encore\Admin\Auth\Database\Administrator::class,
             ],
         ],
+
+        'upload'  => [
+
+            'disk' => 'admin',
+            'directory'  => [
+                'image'  => 'images',
+                'file'   => 'files',
+            ]
+        ],
     ],
 
     /*

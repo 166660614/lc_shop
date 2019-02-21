@@ -2,17 +2,18 @@
 
 namespace App\Admin\Controllers;
 
-use App\Model\WxMediaModel;
+use App\Model\PmMediaModel;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
-use GuzzleHttp;
 use Illuminate\Http\Request;
+use GuzzleHttp;
 use Illuminate\Support\Facades\Redis;
-class WxSendController extends Controller
+
+class PmMediaController extends Controller
 {
     use HasResourceActions;
 
@@ -82,7 +83,7 @@ class WxSendController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new WxMediaModel);
+        $grid = new Grid(new PmMediaModel);
 
         $grid->id('Id');
         $grid->openid('Openid');
@@ -105,7 +106,7 @@ class WxSendController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(WxMediaModel::findOrFail($id));
+        $show = new Show(PmMediaModel::findOrFail($id));
 
         $show->id('Id');
         $show->openid('Openid');
@@ -127,36 +128,36 @@ class WxSendController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new WxMediaModel);
+        $form = new Form(new PmMediaModel);
 
-        $form->textarea('content', '群发内容（只能文本）');
-
+        $form->file('file_column');
         return $form;
     }
-    protected function send(request $request){
-        $url='https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->getAccessToken();
-        $content=$request->input('content');
-        //请求微信接口
-        $client = new GuzzleHttp\Client(['base_uri' => $url]);
-        $data=[
-            'filter'=>[
-                'is_to_all'=>true,
-            ],
-            'text'=>[
-                'content'=>$content
-            ],
-            'msgtype'=>'text'
-        ];
-        $r=$client->request('post',$url,['body'=>json_encode($data,JSON_UNESCAPED_UNICODE)]);
-        //解析接口返回信息
-        $response_arr=json_decode($r->getBody(),true);
-        var_dump($response_arr);
-        if($response_arr['errcode']==0){
-            echo "群发成功";
-        }else{
-            echo "群发失败，请重试";
-            echo "<br/>";
-        }
+    protected  function addnews(Request $request){
+        $file_column=$request->file('file_column');
+        $file_name=$file_column->getClientOriginalName();//获得文件原名称
+        $file_ext=$file_column->getClientOriginalExtension();//获得文件后缀类型
+        //重命名
+        $file_new_name=str_random(15).'.'.$file_ext;
+
+        //保存文件
+        $save_file_path = $request->file('file_column')->storeAs('file_image',$file_new_name);//保存本地服务器后的路径
+        $this->upWxMedia($save_file_path);
+    }
+    protected function upWxMedia($path){
+        $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getAccessToken().'&type=image';
+        $client = new GuzzleHttp\Client();
+        $response = $client->request('POST',$url,[
+            'multipart' => [
+                [
+                    'name'     => 'media',
+                    'contents' => fopen($path, 'r')
+                ],
+            ]
+        ]);
+        $body = $response->getBody();
+        $res= json_decode($body,true);
+        print_r($res);
     }
     //获取AccessToken
     public function getAccessToken(){
