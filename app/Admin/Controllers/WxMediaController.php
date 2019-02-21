@@ -90,7 +90,7 @@ class WxMediaController extends Controller
         $grid->msg_id('Msg id');
         $grid->local_file_name('Local file name')->display(function ($img){
             if($img=='image'){
-                $common='<img src="/wx/image/'.$img.'"width=80px; height=80px;>';
+                $common="<img src=/wx/image/".$img."width=80px; height=80px;>";
             }elseif($img=='voice'){
                 $common='/wx/voice/'.$img;
             }else{
