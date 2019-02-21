@@ -437,4 +437,20 @@
  <MsgId>22199624210576173</MsgId>
  <MediaId><![CDATA[vG0KpxXyXPG8Pm55ptpoOsHms1Ugoa8Z75NRdz5wNn-qFCfSGUYefBnbiymz-E5M]]></MediaId>
  </xml>
+<<<<<<<2019-02-21 00:51:03
+<xml><ToUserName><![CDATA[gh_7a714f3a889f]]></ToUserName>
+<FromUserName><![CDATA[oXz456GPeJdpd2yQLl8amJxlSFVI]]></FromUserName>
+<CreateTime>1550709295</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[subscribe]]></Event>
+<EventKey><![CDATA[]]></EventKey>
+</xml>
+<<<<<<<2019-02-21 00:51:37
+<xml><ToUserName><![CDATA[gh_7a714f3a889f]]></ToUserName>
+<FromUserName><![CDATA[oXz456GPeJdpd2yQLl8amJxlSFVI]]></FromUserName>
+<CreateTime>1550709295</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[subscribe]]></Event>
+<EventKey><![CDATA[]]></EventKey>
+</xml>
 <<<<<<<

@@ -22,11 +22,13 @@ class IndexController extends Controller
     {
         $postdata = file_get_contents("php://input");
         $xml = simplexml_load_string($postdata);
+        //var_dump($postdata);exit;
         $MsgType = $xml->MsgType;
         $event = $xml->Event;
         $openid = $xml->FromUserName; //用户openid
         $sub_time = $xml->CreateTime; //关注时间
         $user_info = $this->getUserInfo($openid);//获取用户信息
+        var_dump($user_info);exit;
         if (isset($MsgType)) {
             if ($MsgType == 'text') {
                 $msg = $xml->Content;
@@ -137,7 +139,9 @@ class IndexController extends Controller
         $url='https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getAccessToken().'&media_id='.$media_id;
         //发送Http请求
         $client=new GuzzleHttp\Client();
+        var_dump($client);exit;
         $response=$client->get($url);
+        //var_dump($response);exit;
         //获取文件名
         $file_info=$response->getHeader('Content-disposition');
         //var_dump($file_info);exit;
