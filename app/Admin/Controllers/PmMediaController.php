@@ -142,22 +142,21 @@ class PmMediaController extends Controller
 
         //保存文件
         $save_file_path = $request->file('file_column')->storeAs('file_image',$file_new_name);//保存本地服务器后的路径
-        $this->upWxMedia($save_file_path);
+        $this->upWxMedia($save_file_path,$file_column);
     }
-    protected function upWxMedia($path){
+    protected function upWxMedia($path,$file_column){
         $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getAccessToken().'&type=image';
         $client = new GuzzleHttp\Client();
         $response = $client->request('POST',$url,[
             'multipart' => [
                 [
-                    'name'     => 'media',
+                    'name'     => $file_column,
                     'contents' => fopen($path, 'r')
                 ],
             ]
         ]);
         $body = $response->getBody();
-        $res= json_decode($body,true);
-        print_r($res);
+        $arr= json_decode($body,true);//图片media_id 和查看图片路径(永久)
     }
     //获取AccessToken
     public function getAccessToken(){
@@ -171,5 +170,24 @@ class PmMediaController extends Controller
             Redis::setTimeout($this->redis_weixin_access_token,3600);
         }
         return $token;
+    }
+    //获取永久素材列表
+    protected function getPMediaList(){
+        $client = new GuzzleHttp\Client();
+        $type = $_GET['type'];
+        $offset = $_GET['offset'];
+        $url = 'https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token='.$this->getWXAccessToken();
+        $body = [
+            "type"      => $type,
+            "offset"    => $offset,
+            "count"     => 20
+        ];
+        $response = $client->request('POST', $url, [
+            'body' => json_encode($body)
+        ]);
+        $body = $response->getBody();
+        echo $body;exit;
+        $arr = json_decode($response->getBody(),true);
+        var_dump($arr);exit;
     }
 }
