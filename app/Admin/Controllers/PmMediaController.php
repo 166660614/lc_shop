@@ -174,12 +174,10 @@ class PmMediaController extends Controller
     //获取永久素材列表
     protected function getPMediaList(){
         $client = new GuzzleHttp\Client();
-        $type = $_GET['type'];
-        $offset = $_GET['offset'];
-        $url = 'https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token='.$this->getWXAccessToken();
+        $url = 'https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token='.$this->getAccessToken();
         $body = [
-            "type"      => $type,
-            "offset"    => $offset,
+            "type"      => 'image',
+            "offset"    => 0,
             "count"     => 20
         ];
         $response = $client->request('POST', $url, [
