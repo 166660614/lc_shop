@@ -18,4 +18,9 @@ Route::group([
     $router->post('/weixin/send', 'WxSendController@send');
     $router->post('/weixin/pmedia', 'PmMediaController@addnews');
     $router->get('/weixin/getpmedialist', 'PmMediaController@getPMediaList');
+
+    $router->get('/weixin/pchat/create?user_id={$user_id}', 'WxController@create');
+
+
+    $router->post('/weixin/userinfo', 'WxController@privatechat');
 });

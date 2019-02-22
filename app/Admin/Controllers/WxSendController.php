@@ -133,7 +133,7 @@ class WxSendController extends Controller
 
         return $form;
     }
-    protected function send(request $request){
+    protected function send(Request $request){
         $url='https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->getAccessToken();
         $content=$request->input('content');
         //请求微信接口

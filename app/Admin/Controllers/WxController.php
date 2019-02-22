@@ -9,6 +9,9 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use GuzzleHttp;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class WxController extends Controller
 {
@@ -20,6 +23,7 @@ class WxController extends Controller
      * @param Content $content
      * @return Content
      */
+    protected $redis_weixin_access_token='astr:weixin_access_token';//微信 access_token
     public function index(Content $content)
     {
         return $content
@@ -66,10 +70,15 @@ class WxController extends Controller
      */
     public function create(Content $content)
     {
+        $user_id=$_GET['user_id'];
+       /* return $content
+            ->header('Create')
+            ->description('description')
+            ->body($this->form());*/
         return $content
             ->header('Create')
             ->description('description')
-            ->body($this->form());
+            ->body(view('admin.chat',['user_id' =>$user_id])->render());
     }
 
     /**
@@ -105,8 +114,11 @@ class WxController extends Controller
         });
         $grid->subscribe_time('Subscribe time')->display(function ($time){
             return date('Y-m-d H:i:s',$time);
-        });;
-
+        });
+        $grid->actions(function ($actions){
+            $key=$actions->getKey();
+            $actions->prepend('<a href="/admin/weixin/userinfo/create?user_id='.$key.'"><i class="fa fa-paper-plane"></i></a>');
+        });
         return $grid;
     }
 
@@ -128,7 +140,6 @@ class WxController extends Controller
         $show->sex('Sex');
         $show->headimgurl('Headimgurl');
         $show->subscribe_time('Subscribe time');
-
         return $show;
     }
 
@@ -139,16 +150,43 @@ class WxController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new WxModel);
-
-        $form->number('uid', 'Uid');
-        $form->text('nickname', 'Nickname');
-        $form->text('openid', 'Openid');
-        $form->number('add_time', 'Add time');
-        $form->switch('sex', 'Sex');
-        $form->text('headimgurl', 'Headimgurl');
-        $form->number('subscribe_time', 'Subscribe time');
-
-        return $form;
+        /*$form = new Form(new WxModel);
+        $form->textarea('content','粉丝互动内容');
+        return $form;*/
+    }
+    protected function privatechat(Request $request){
+        $url='https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$this->getAccessToken();
+        $news=$request->input('news');
+        $user_id=$request->input('user_id');
+        $where=[
+          'id'=>$user_id,
+        ];
+        $openid=WxModel::where($where)->value('openid');
+        //请求微信接口
+        $client = new GuzzleHttp\Client(['base_uri' => $url]);
+        $data=[
+            'touser'=>$openid,
+            'msgtype'=>'text',
+            'text'=>[
+                'content'=>$news
+            ]
+        ];
+        $r=$client->request('post',$url,['body'=>json_encode($data,JSON_UNESCAPED_UNICODE)]);
+        //解析接口返回信息
+        $response_arr=json_decode($r->getBody(),true);
+        var_dump($response_arr);
+    }
+    //获取AccessToken
+    public function getAccessToken(){
+        $token=Redis::get($this->redis_weixin_access_token);
+        if(!$token){
+            $url="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".env('WEIXIN_APPID')."&secret=".env('WEIXIN_APPSECRET');
+            $data=json_decode(file_get_contents($url),true);
+            //记录缓存
+            $token=$data['access_token'];
+            Redis::set($this->redis_weixin_access_token,$token);
+            Redis::setTimeout($this->redis_weixin_access_token,3600);
+        }
+        return $token;
     }
 }
