@@ -338,4 +338,18 @@ class IndexController extends Controller
         }
 
     }
+    //api次数清零
+    public function clearApi(){
+        $url='https://api.weixin.qq.com/cgi-bin/clear_quota?access_token='.$this->getAccessToken();
+        //请求微信接口
+        $client = new GuzzleHttp\Client();
+        $response = $client->request('POST',$url,[
+            $data=[
+                'appid'=>env('WEIXIN_APPID'),
+            ]
+        ]);
+        $body = $response->getBody();
+        $arr= json_decode($body,true);
+        print_r($arr);exit;
+    }
 }
