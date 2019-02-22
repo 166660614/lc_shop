@@ -144,6 +144,8 @@ class PmMediaController extends Controller
         $save_file_path = $request->file('file_column')->storeAs('file_image',$file_new_name);//保存本地服务器后的路径
         $this->upWxMedia($save_file_path,$file_column);
     }
+
+    //上传文件至微信服务器
     protected function upWxMedia($path,$file_column){
         $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getAccessToken().'&type=image';
         $client = new GuzzleHttp\Client();
@@ -157,6 +159,21 @@ class PmMediaController extends Controller
         ]);
         $body = $response->getBody();
         $arr= json_decode($body,true);//图片media_id 和查看图片路径(永久)
+
+        $this->getWxPMedia($arr['media_id'],$client);//获取微信服务器的永久素材保存至数据库
+    }
+
+    //获取微信服务器的永久素材保存至数据库
+    protected function getWxPMedia($media_id,$client){
+        $url = 'https://api.weixin.qq.com/cgi-bin/material/get_material?access_token='.$this->getAccessToken();
+        $response = $client->request('POST',$url,[
+            $data=[
+                'media'=>$media_id,
+            ]
+        ]);
+        $body = $response->getBody();
+        $arr= json_decode($body,true);
+        print_r($arr);exit;
     }
     //获取AccessToken
     public function getAccessToken(){
