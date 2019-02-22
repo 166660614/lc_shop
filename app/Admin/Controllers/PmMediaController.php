@@ -152,14 +152,13 @@ class PmMediaController extends Controller
         $response = $client->request('POST',$url,[
             'multipart' => [
                 [
-                    'name'     => $file_column,
+                    'name'     => 'media',
                     'contents' => fopen($path, 'r')
                 ],
             ]
         ]);
         $body = $response->getBody();
         $arr= json_decode($body,true);//图片media_id 和查看图片路径(永久)
-        var_dump($arr);exit;
         $this->getWxPMedia($arr['media_id'],$client);//获取微信服务器的永久素材保存至数据库
     }
 
