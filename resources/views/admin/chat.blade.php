@@ -34,12 +34,12 @@
                 data:{user_id:user_id,news:news},
                 dataType:'json',
                 success:function (res) {
-                    alert(res.msg)
                     if(res.code==0){
+                        alert(res.msg)
                         _news="<h6>+news+</h6>"
                         $('#content').append(_news);
                     }else{
-                        alert(res.msg);
+                        alert(res);
                     }
                 }
             })
