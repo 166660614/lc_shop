@@ -61,7 +61,7 @@
                 success:function (res) {
                     $('#content').html('');
                     $.each($res,function (i,n) {
-                        _newscontent="<h6>"+nickname+":"+n['content']
+                        _newscontent="<h6>"+nickname+":"+n['content']+"</h6>"
                         $('#content').append(_newscontent)
                     })
                    /* console.log(res.recorddata);
