@@ -35,7 +35,6 @@
                     dataType:'json',
                     success:function (res) {
                         if(res.code==0){
-                            alert(res.msg)
                            var _news="<h6>小智客服&nbsp;：&nbsp;"+news+"</h6>"
                             $('#content').append(_news);
                             $('#news').val('');
