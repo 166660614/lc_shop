@@ -1,4 +1,3 @@
-
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <form>
     <table>
@@ -45,23 +44,25 @@
                     }
                 })
         })
+
         setInterval(function () {
             var user_id=$('.user_id').val();
+            console.log(user_id)
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-                url:'',
-                type:'{{url("admin/weixin/getrecord")}}',
+                url:'{{url("admin/weixin/getrecord")}}',
+                type:'post',
                 data:{user_id:user_id},
                 dataType:'json',
                 success:function (res) {
                     console.log(res.recorddata);
                     _newcontent=res.recorddata;
-                    $('div').html(_newcontent);
+                    $('#content').html(_newcontent);
                 }
             })
-        })
+        },3000)
     })
 </script>
