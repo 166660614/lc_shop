@@ -36,7 +36,8 @@
                 success:function (res) {
                     alert(res.msg)
                     if(res.code==0){
-                        $('#content').append('<h6>'+news+'</h6>');
+                        _news="<h6>+news+</h6>"
+                        $('#content').append(_news);
                     }else{
                         alert(res.msg);
                     }
