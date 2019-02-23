@@ -47,22 +47,17 @@
         })
         setInterval(function () {
             var user_id=$('.user_id').val();
-            var news=$('#news').val();
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 contentType : "application/x-www-form-urlencoded; charset=UTF-8",
                 url:'',
-                type:'{{url("admin/weixin/userinfo")}}',
-                data:{user_id:user_id,news:news},
+                type:'{{url("admin/weixin/getrecord")}}',
+                data:{user_id:user_id},
                 dataType:'json',
                 success:function (res) {
-                    if(res.code==0){
-                       console.log(res);
-                    }else{
-
-                    }
+                    console.log(res)
                 }
             })
         })

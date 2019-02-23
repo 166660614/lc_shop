@@ -23,4 +23,5 @@ Route::group([
 
 
     $router->post('/weixin/userinfo', 'WxController@privatechat');
+    $router->post('/weixin/getrecord', 'WxController@getChatRecord');
 });

@@ -200,15 +200,9 @@ class WxController extends Controller
                 'nickname'=>'小智客服',
             ];
             $res=ChatRecordModel::insert($data);
-            $selectwhere=[
-                'openid'=>$openid,
-            ];
-            $recordData=ChatRecordModel::where($selectwhere)->orderby('add_time','asc')->select();
-            var_dump($recordData);exit;
             $arr=[
                 'code'=>0,
                 'msg'=>'发送成功',
-                'data'=>$recordData,
             ];
         }else{
             $arr=[
@@ -219,8 +213,15 @@ class WxController extends Controller
         echo json_encode($arr);
     }
     //获取聊天记录
-    public function getChatRecord($user_id){
-        var_dump($user_id);exit;
+    public function getChatRecord(Request $request){
+        $user_id=$request->input('user_id');
+        $openid=WxModel::where(['id'=>$user_id])->select();
+        $selectwhere=[
+            'openid'=>$openid,
+        ];
+        $recordData=ChatRecordModel::where($selectwhere)->orderby('add_time','asc')->select();
+        var_dump($recordData);exit;
+        //var_dump($user_id);exit;
     }
     //获取AccessToken
     public function getAccessToken(){
