@@ -48,6 +48,7 @@
 
         setInterval(function () {
             var openid=$('.openid').val();
+            var nickname=$('.nickname').val();
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -58,7 +59,11 @@
                 data:{openid:openid},
                 dataType:'json',
                 success:function (res) {
-                    console.log(res)
+                    $('#content').html('');
+                    $.each($res,function (i,n) {
+                        _newscontent="<h6>"+nickname+":"+n['content']
+                        $('#content').append(_newscontent)
+                    })
                    /* console.log(res.recorddata);
                     _newcontent=res.recorddata;
                     $('#content').html(_newcontent);*/
