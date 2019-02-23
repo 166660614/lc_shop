@@ -34,8 +34,9 @@
                 data:{user_id:user_id,news:news},
                 dataType:'json',
                 success:function (res) {
+                    alert(res.msg)
                     if(res.code==0){
-                        $('#content').val().append(news);
+                        $('#content').append(news);
                     }else{
                         alert(res.msg);
                     }
