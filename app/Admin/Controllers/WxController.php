@@ -192,10 +192,6 @@ class WxController extends Controller
         //解析接口返回信息
         $response_arr=json_decode($r->getBody(),true);
         if($response_arr['errcode']==0){
-            $arr=[
-              'code'=>0,
-              'msg'=>'发送成功',
-            ];
             //存入数据库
             $data=[
                 'content'=>$news,
@@ -204,6 +200,15 @@ class WxController extends Controller
                 'nickname'=>'小智客服',
             ];
             $res=ChatRecordModel::insert($data);
+            $selectwhere=[
+                'openid'=>$openid,
+            ];
+            $recordData=ChatRecordModel::where($selectwhere)->orderby('add_time','asc')->select();
+            $arr=[
+                'code'=>0,
+                'msg'=>'发送成功',
+                'data'=>$recordData,
+            ];
         }else{
             $arr=[
                 'code'=>1,
@@ -211,6 +216,10 @@ class WxController extends Controller
             ];
         }
         echo json_encode($arr);
+    }
+    //获取聊天记录
+    public function getChatRecord($user_id){
+        var_dump($user_id);exit;
     }
     //获取AccessToken
     public function getAccessToken(){

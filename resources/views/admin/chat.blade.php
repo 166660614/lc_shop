@@ -24,23 +24,44 @@
             var news=$('#news').val();
             var user_id=$('.user_id').val();
             //$('#content').text(news);
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+                    url:'{{url("admin/weixin/userinfo")}}',
+                    type:'post',
+                    data:{user_id:user_id,news:news},
+                    dataType:'json',
+                    success:function (res) {
+                        if(res.code==0){
+                            alert(res.msg)
+                           var _news="<h6>小智客服 ："+news+"</h6>"
+                            $('#content').append(_news);
+                            $('#news').val('');
+                        }else{
+                            alert(res);
+                        }
+                    }
+                })
+        })
+        setInterval(function () {
+            var user_id=$('.user_id').val();
+            var news=$('#news').val();
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-                url:'{{url("admin/weixin/userinfo")}}',
-                type:'post',
+                url:'',
+                type:'{{url("admin/weixin/userinfo")}}',
                 data:{user_id:user_id,news:news},
                 dataType:'json',
                 success:function (res) {
                     if(res.code==0){
-                        alert(res.msg)
-                        _news="<h6>小智客服 ："+news+"</h6>"
-                        $('#content').append(_news);
-                        $('#news').val('');
+                       console.log(res);
                     }else{
-                        alert(res);
+
                     }
                 }
             })
