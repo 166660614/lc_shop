@@ -60,8 +60,13 @@
                 dataType:'json',
                 success:function (res) {
                     $('#content').html('');
-                    $.each(res,function (si,n) {
-                        _newscontent="<h6>"+nickname+"&nbsp;: &nbsp;"+n['content']+"</h6>"
+                    $.each(res,function (i,n) {
+                        if(n['nickname']=='小智客服'){
+                            _newscontent="<h6>小智客服&nbsp;: &nbsp;"+n['content']+"</h6>"
+                        }else{
+                            _newscontent="<h6>"+nickname+"&nbsp;: &nbsp;"+n['content']+"</h6>"
+                        }
+
                         $('#content').append(_newscontent)
                     })
                    /* console.log(res.recorddata);
