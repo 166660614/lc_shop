@@ -60,7 +60,7 @@
                 dataType:'json',
                 success:function (res) {
                     //$('#content').html('');
-                    $.each($res,function (i,n) {
+                    $.each(res,function (i,n) {
                         _newscontent="<h6>"+nickname+":"+n['content']+"</h6>"
                         $('#content').append(_newscontent)
                     })
