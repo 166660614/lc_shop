@@ -36,7 +36,7 @@
                 success:function (res) {
                     alert(res.msg)
                     if(res.code==0){
-                        $('#content').append(news);
+                        $('#content').append(news+'<br>');
                     }else{
                         alert(res.msg);
                     }
