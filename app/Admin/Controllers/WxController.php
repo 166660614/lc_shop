@@ -175,7 +175,7 @@ class WxController extends Controller
         if($response_arr['errcode']==0){
             $arr=[
               'code'=>0,
-              'msg'=>发送成功,
+              'msg'=>'发送成功',
             ];
             echo json_encode($arr);
         }else{
