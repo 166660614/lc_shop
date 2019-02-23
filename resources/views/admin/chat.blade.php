@@ -38,6 +38,7 @@
                         alert(res.msg)
                         _news="<h6>"+news+"</h6>"
                         $('#content').append(_news);
+                        $('#news').val('');
                     }else{
                         alert(res);
                     }
