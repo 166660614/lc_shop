@@ -6,6 +6,7 @@
             <td><div style="width:400px;height:500px;border: solid black 1px" id="content"></div></td>
         </tr>
         <input type="hidden" class="openid" value="{{$userinfo['openid']}}">
+        <input type="hidden" class="nickname" value="{{$userinfo['nickname']}}">
         <tr>
             <td>发送内容：</td>
             <td><input type="text" id="news"></td>
@@ -35,7 +36,7 @@
                     success:function (res) {
                         if(res.code==0){
                             alert(res.msg)
-                           var _news="<h6>小智客服 ："+news+"</h6>"
+                           var _news="<h6>小智客服&nbsp;：&nbsp;"+news+"</h6>"
                             $('#content').append(_news);
                             $('#news').val('');
                         }else{
@@ -47,6 +48,7 @@
 
         setInterval(function () {
             var openid=$('.openid').val();
+            var nickname=$('.nickname').val();
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -58,8 +60,8 @@
                 dataType:'json',
                 success:function (res) {
                     $('#content').html('');
-                    $.each(res,function (i,n) {
-                        _newscontent="<h6>"+n['nickname']+":"+n['content']+"</h6>"
+                    $.each(res,function (si,n) {
+                        _newscontent="<h6>"+nickname+"&nbsp;: &nbsp;"+n['content']+"</h6>"
                         $('#content').append(_newscontent)
                     })
                    /* console.log(res.recorddata);

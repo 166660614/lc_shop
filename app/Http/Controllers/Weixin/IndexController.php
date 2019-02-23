@@ -36,7 +36,7 @@ class IndexController extends Controller
                     'content'=>$msg,
                     'add_time'=>time(),
                     'openid'=>$openid,
-                    'nickname'=>$user_info['nickname'],
+                    'nickname'=>$openid,
                 ];
                 $res=ChatRecordModel::insert($data);
             } elseif ($MsgType == 'image') {
