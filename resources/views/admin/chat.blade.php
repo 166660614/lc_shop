@@ -73,6 +73,6 @@
                     $('#content').html(_newcontent);*/
                 }
             })
-        },5000)
+        },2000)
     })
 </script>
