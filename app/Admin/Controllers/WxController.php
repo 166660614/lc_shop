@@ -94,10 +94,11 @@ class WxController extends Controller
             ->header('Create')
             ->description('description')
             ->body($this->form());*/
+       $data=WxModel::where(['id'=>$user_id])->first();
         return $content
             ->header('Create')
             ->description('description')
-            ->body(view('admin.chat',['user_id' =>$user_id])->render());
+            ->body(view('admin.chat',['userinfo' =>$data])->render());
     }
 
     /**
@@ -174,11 +175,7 @@ class WxController extends Controller
     protected function privatechat(Request $request){
         $url='https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$this->getAccessToken();
         $news=$request->input('news');
-        $user_id=$request->input('user_id');
-        $where=[
-          'id'=>$user_id,
-        ];
-        $openid=WxModel::where($where)->value('openid');
+        $openid=$request->input('openid');
         //请求微信接口
         $client = new GuzzleHttp\Client(['base_uri' => $url]);
         $data=[
@@ -214,13 +211,8 @@ class WxController extends Controller
     }
     //获取聊天记录
     public function getChatRecord(Request $request){
-        $user_id=$request->input('user_id');
-        $openid=WxModel::where(['id'=>$user_id])->select();
-        $selectwhere=[
-            'openid'=>$openid,
-        ];
-        $recordData=ChatRecordModel::where($selectwhere)->orderby('add_time','asc')->select();
-        var_dump($recordData);exit;
+        $openid=$request->input('openid');
+        $recordData=ChatRecordModel::where(['openid'=>$openid])->orderby('add_time','asc')->select();
         $arr=[
             'recorddata'=>$recordData,
         ];

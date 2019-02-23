@@ -5,7 +5,8 @@
             <td>聊天记录</td>
             <td><div style="width:400px;height:500px;border: solid black 1px" id="content"></div></td>
         </tr>
-        <input type="hidden" class="user_id" value="{{$user_id}}">
+        <input type="hidden" class="openid" value="{{$userinfo['openid']}}">
+        <input type="hidden" class="nickname" value="{{$userinfo['nickname']}}">
         <tr>
             <td>发送内容：</td>
             <td><input type="text" id="news"></td>
@@ -21,7 +22,7 @@
         $('#submit').click(function () {
             _this=$(this);
             var news=$('#news').val();
-            var user_id=$('.user_id').val();
+            var user_id=$('.openid').val();
             //$('#content').text(news);
                 $.ajax({
                     headers: {
@@ -30,7 +31,7 @@
                     contentType : "application/x-www-form-urlencoded; charset=UTF-8",
                     url:'{{url("admin/weixin/userinfo")}}',
                     type:'post',
-                    data:{user_id:user_id,news:news},
+                    data:{openid:openid,news:news},
                     dataType:'json',
                     success:function (res) {
                         if(res.code==0){
@@ -46,7 +47,7 @@
         })
 
         setInterval(function () {
-            var user_id=$('.user_id').val();
+            var user_id=$('.openid').val();
             console.log(user_id)
             $.ajax({
                 headers: {
@@ -55,7 +56,7 @@
                 contentType : "application/x-www-form-urlencoded; charset=UTF-8",
                 url:'{{url("admin/weixin/getrecord")}}',
                 type:'post',
-                data:{user_id:user_id},
+                data:{openid:openid},
                 dataType:'json',
                 success:function (res) {
                     console.log(res.recorddata);
@@ -63,6 +64,6 @@
                     $('#content').html(_newcontent);
                 }
             })
-        },3000)
+        },5000)
     })
 </script>
