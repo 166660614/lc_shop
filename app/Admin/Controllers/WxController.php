@@ -213,10 +213,11 @@ class WxController extends Controller
     public function getChatRecord(Request $request){
         $openid=$request->input('openid');
         $recordData=ChatRecordModel::orderBy('add_time','asc')->where(['openid'=>$openid])->select();
-        $arr=[
+        print_r($recordData);
+        /*$arr=[
             'recorddata'=>$recordData,
         ];
-        echo json_encode($arr);;
+        echo json_encode($arr);*/
     }
     //获取AccessToken
     public function getAccessToken(){

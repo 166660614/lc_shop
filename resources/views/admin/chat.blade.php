@@ -58,9 +58,10 @@
                 data:{openid:openid},
                 dataType:'json',
                 success:function (res) {
-                    console.log(res.recorddata);
+                    console.log(res)
+                   /* console.log(res.recorddata);
                     _newcontent=res.recorddata;
-                    $('#content').html(_newcontent);
+                    $('#content').html(_newcontent);*/
                 }
             })
         },5000)
