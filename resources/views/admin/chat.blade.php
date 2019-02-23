@@ -29,7 +29,7 @@
                 data:{user_id:user_id,news:news},
                 dataType:'json',
                 success:function (res) {
-                    console.log(res)
+                    alert(res);
                 }
             })
         })

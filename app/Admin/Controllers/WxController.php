@@ -174,7 +174,7 @@ class WxController extends Controller
         $r=$client->request('post',$url,['body'=>json_encode($data,JSON_UNESCAPED_UNICODE)]);
         //解析接口返回信息
         $response_arr=json_decode($r->getBody(),true);
-        var_dump($response_arr);
+        echo $response_arr['errmsg'];
     }
     //获取AccessToken
     public function getAccessToken(){
