@@ -4,7 +4,7 @@
     <table>
         <tr>
             <td>聊天记录</td>
-            <td><textarea name="" id="content" cols="30" rows="10"></textarea></td>
+            <td><div width="400px" height="600px" style="border: solid black 1px" id="content"></div></td>
         </tr>
         <input type="hidden" class="user_id" value="{{$user_id}}">
         <tr>
