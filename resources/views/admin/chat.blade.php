@@ -35,7 +35,7 @@
                 dataType:'json',
                 success:function (res) {
                     if(res.code==0){
-                        $('textarea').append(news);
+                        $('#content').val().append(news);
                     }else{
                         alert(res.msg);
                     }
