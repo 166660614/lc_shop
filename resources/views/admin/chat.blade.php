@@ -22,7 +22,7 @@
         $('#submit').click(function () {
             _this=$(this);
             var news=$('#news').val();
-            var user_id=$('.openid').val();
+            var openid=$('.openid').val();
             //$('#content').text(news);
                 $.ajax({
                     headers: {
