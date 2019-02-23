@@ -4,7 +4,7 @@
     <table>
         <tr>
             <td>聊天记录</td>
-            <td><div width="400px" height="600px" style="border: solid black 1px" id="content"></div></td>
+            <td><div style="width:400px;height:500px;border: solid black 1px" id="content"></div></td>
         </tr>
         <input type="hidden" class="user_id" value="{{$user_id}}">
         <tr>
@@ -36,9 +36,8 @@
                 success:function (res) {
                     if(res.code==0){
                         alert(res.msg)
-                        //_news="<h6>"+news+"</h6>"
-                        //console.log(_news)
-                        $('#content').append(news);
+                        _news="<h6>"+news+"</h6>"
+                        $('#content').append(_news);
                     }else{
                         alert(res);
                     }
