@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Weixin;
 
 use App\Model\WxModel;
+use App\Model\ChatRecordModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
@@ -30,8 +31,14 @@ class IndexController extends Controller
         if (isset($MsgType)) {
             if ($MsgType == 'text') {
                 $msg = $xml->Content;
-                $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '您刚才发送的消息是 ：' . $msg . '  发送时间是 ：' . date('Y-m-d H:i:s') . ']]></Content></xml>';
-                echo $xml_response;
+                //存入数据库
+                $data=[
+                    'content'=>$msg,
+                    'add_time'=>time(),
+                    'openid'=>$openid,
+                    'nickname'=>$openid,
+                ];
+                $res=ChatRecordModel::insert($data);
             } elseif ($MsgType == 'image') {
                 $file_name=$this->dealWxImg($xml->MediaId);
                 $data=[
