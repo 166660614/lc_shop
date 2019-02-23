@@ -46,6 +46,24 @@ class WxController extends Controller
             ->description('gdescription')
             ->body($this->detail($id));
     }
+    public function destroy($id)
+    {
+        $where=['id'=>$id];
+        $res=WxModel::where($where)->delete();
+        if($res){
+            $response=[
+                'status'=>true,
+                'message'=>'删除成功'
+            ];
+            return $response;
+        }else{
+            $response=[
+                'status'=>false,
+                'message'=>'删除失败'
+            ];
+            return $response;
+        }
+    }
 
     /**
      * Edit interface.
