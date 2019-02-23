@@ -48,7 +48,6 @@
 
         setInterval(function () {
             var openid=$('.openid').val();
-            console.log(user_id)
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
