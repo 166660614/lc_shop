@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Model\WxModel;
+use App\Model\ChatRecordModel;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -195,6 +196,14 @@ class WxController extends Controller
               'code'=>0,
               'msg'=>'发送成功',
             ];
+            //存入数据库
+            $data=[
+                'content'=>$news,
+                'add_time'=>time(),
+                'openid'=>$openid,
+                'nickname'=>'小智客服',
+            ];
+            $res=ChatRecordModel::insert($data);
         }else{
             $arr=[
                 'code'=>1,
