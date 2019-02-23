@@ -180,7 +180,7 @@ class WxController extends Controller
         }else{
             $arr=[
                 'code'=>1,
-                'msg'=>$response_arr['msg'],
+                'msg'=>$response_arr['errmsg'],
             ];
         }
         echo json_encode($arr);
