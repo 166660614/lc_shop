@@ -57,7 +57,9 @@
                 data:{user_id:user_id},
                 dataType:'json',
                 success:function (res) {
-                    console.log(res)
+                    console.log(res.recorddata);
+                    _newcontent=res.recorddata;
+                    $('div').html(_newcontent);
                 }
             })
         })

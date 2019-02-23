@@ -220,7 +220,10 @@ class WxController extends Controller
             'openid'=>$openid,
         ];
         $recordData=ChatRecordModel::where($selectwhere)->orderby('add_time','asc')->select();
-        var_dump($recordData);exit;
+        $arr=[
+            'recorddata'=>$recordData,
+        ];
+        echo json_encode($arr);
         //var_dump($user_id);exit;
     }
     //获取AccessToken
