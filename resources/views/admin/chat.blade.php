@@ -23,7 +23,7 @@
             _this=$(this);
             var news=$('#news').val();
             var user_id=$('.user_id').val();
-            $('#content').text(news);
+            //$('#content').text(news);
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -34,7 +34,11 @@
                 data:{user_id:user_id,news:news},
                 dataType:'json',
                 success:function (res) {
-                    alert(res);
+                    if(res.code==0){
+                        $('textarea').append(news);
+                    }else{
+                        alert(res.msg);
+                    }
                 }
             })
         })

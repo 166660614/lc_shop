@@ -150,9 +150,7 @@ class WxController extends Controller
      */
     protected function form()
     {
-        /*$form = new Form(new WxModel);
-        $form->textarea('content','粉丝互动内容');
-        return $form;*/
+
     }
     protected function privatechat(Request $request){
         $url='https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$this->getAccessToken();
@@ -174,7 +172,18 @@ class WxController extends Controller
         $r=$client->request('post',$url,['body'=>json_encode($data,JSON_UNESCAPED_UNICODE)]);
         //解析接口返回信息
         $response_arr=json_decode($r->getBody(),true);
-        echo $response_arr['errmsg'];
+        if($response_arr['errcode']==0){
+            $arr=[
+              'code'=>0,
+              'msg'=>发送成功,
+            ];
+        }else{
+            $arr=[
+                'code'=>1,
+                'msg'=>$response_arr['errmsg'],
+            ];
+        }
+        echo json_encode($arr);
     }
     //获取AccessToken
     public function getAccessToken(){
