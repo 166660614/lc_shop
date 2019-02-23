@@ -47,7 +47,7 @@
         })
 
         setInterval(function () {
-            var user_id=$('.openid').val();
+            var openid=$('.openid').val();
             console.log(user_id)
             $.ajax({
                 headers: {
