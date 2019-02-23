@@ -177,10 +177,13 @@ class WxController extends Controller
               'code'=>0,
               'msg'=>'发送成功',
             ];
-            echo json_encode($arr);
         }else{
-            echo $response_arr['msg'];
+            $arr=[
+                'code'=>1,
+                'msg'=>$response_arr['msg'],
+            ];
         }
+        echo json_encode($arr);
     }
     //获取AccessToken
     public function getAccessToken(){
