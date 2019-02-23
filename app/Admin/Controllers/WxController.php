@@ -204,6 +204,7 @@ class WxController extends Controller
                 'openid'=>$openid,
             ];
             $recordData=ChatRecordModel::where($selectwhere)->orderby('add_time','asc')->select();
+            var_dump($recordData);exit;
             $arr=[
                 'code'=>0,
                 'msg'=>'发送成功',
