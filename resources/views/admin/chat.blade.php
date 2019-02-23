@@ -36,7 +36,7 @@
                 success:function (res) {
                     if(res.code==0){
                         alert(res.msg)
-                        _news="<h6>"+news+"</h6>"
+                        _news="小智客服 ：<h6>"+news+"</h6>"
                         $('#content').append(_news);
                         $('#news').val('');
                     }else{
