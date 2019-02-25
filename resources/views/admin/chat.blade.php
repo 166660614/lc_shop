@@ -1,4 +1,5 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<h1>和{{$userinfo['nickname']}}热聊中！</h1>
 <form>
     <table>
         <tr>
