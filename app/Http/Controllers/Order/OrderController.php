@@ -17,7 +17,7 @@ class OrderController extends Controller
             'appid'=>env('WEIXIN_APPID_0'),//微信支付绑定的服务号的APPID
             'mch_id'=>env('WEIXIN_MCH_ID'), //商户ID
             'nonce_str'=>str_random(16), //随机字符串
-            'sign_type'     => 'ylc',
+            'sign_type'     => 'MD5',
             'body'          => '筱川订单-'.mt_rand(1111,9999) . str_random(6),
             'out_trade_no'  => $order_id,
             'total_fee'     => $total_fee,
