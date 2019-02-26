@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Order;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Libs\phpqrcode\QRcode;
+use Libs\phpqrcode;
 class OrderController extends Controller
 {
     public $weixin_unifiedorder_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
@@ -34,10 +34,11 @@ class OrderController extends Controller
         $data =  simplexml_load_string($res);
         //生成二维码图片
         $url=$data->code_url;
+        $qrcode=new phpqrcode();
         $errorCorrectionLevel = 'H';//容错级别
         $matrixPointSize = 7;//图片大小
         $qr = rand(10000,99999).time().".png";
-        $picture=QRcode::png($url, $qr, $errorCorrectionLevel, $matrixPointSize, 2);//2代表白边宽度
+        $picture=$qrcode->png($url, $qr, $errorCorrectionLevel, $matrixPointSize, 2);//2代表白边宽度
         echo $picture;
 
     }
