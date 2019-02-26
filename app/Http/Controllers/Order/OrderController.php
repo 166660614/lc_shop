@@ -34,11 +34,11 @@ class OrderController extends Controller
         $data =  simplexml_load_string($res);
         //生成二维码图片
         $url=$data->code_url;
-        $qrcode=new phpqrcode();
+        //$qrcode=new phpqrcode();
         $errorCorrectionLevel = 'H';//容错级别
         $matrixPointSize = 7;//图片大小
         $qr = rand(10000,99999).time().".png";
-        $picture=$qrcode->png($url, $qr, $errorCorrectionLevel, $matrixPointSize, 2);//2代表白边宽度
+        $picture=QRcode::png($url, $qr, $errorCorrectionLevel, $matrixPointSize, 2);//2代表白边宽度
         echo $picture;
 
     }
