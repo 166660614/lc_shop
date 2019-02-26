@@ -23,6 +23,7 @@ class OrderController extends Controller
             'total_fee'     => $total_fee,
             'spbill_create_ip'  => $_SERVER['REMOTE_ADDR'],//客户端ip
             'notify_url'=>$this->weixin_notify_url,
+            'trade_type'    => 'NATIVE' //交易类型
 
         ];
         $this->values = [];
