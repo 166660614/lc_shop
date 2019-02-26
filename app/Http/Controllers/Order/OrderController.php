@@ -28,7 +28,11 @@ class OrderController extends Controller
 
         ];
         $this->values = $order_info;
-        $xml=$this->toXml();
+        $xml=$this->toXml();//将数组转化为xml
+        $res = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
+
+        $data =  simplexml_load_string($res);
+        echo $data->code_url;
     }
     public function SetSign()
     {
