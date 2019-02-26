@@ -32,7 +32,7 @@ class OrderController extends Controller
         $res = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
 
         $data =  simplexml_load_string($res);
-        echo 1;
+        var_dump($data);exit;
         echo $data->code_url;exit;
     }
     public function SetSign()
