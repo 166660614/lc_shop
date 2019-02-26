@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Order;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Libs\QRcode;
+use App\Libs\phpqrcode\Qrcode;
 class OrderController extends Controller
 {
     public $weixin_unifiedorder_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
