@@ -32,8 +32,10 @@ class OrderController extends Controller
         $xml=$this->toXml();//将数组转化为xml
         $res = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
         $data =  simplexml_load_string($res);
+        //echo 1;exit;
         //生成二维码图片
         $url=$data->code_url;
+        //echo $url;exit;
         //$qrcode=new phpqrcode();
         $errorCorrectionLevel = 'H';//容错级别
         $matrixPointSize = 7;//图片大小
