@@ -30,7 +30,7 @@ class OrderController extends Controller
         $this->SetSign();
         $xml=$this->toXml();//将数组转化为xml
         $res = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
-
+        print_r($res);exit;
         $data =  simplexml_load_string($res);
         var_dump($data);exit;
         echo $data->code_url;exit;
