@@ -34,6 +34,7 @@ class OrderController extends Controller
         $data =  simplexml_load_string($res);
         //生成二维码图片
         $url=$data->code_url;
+        $helper=new \Libs\phpqrcode\png();
         $errorCorrectionLevel = 'H';//容错级别
         $matrixPointSize = 7;//图片大小
         $qr = rand(10000,99999).time().".png";
