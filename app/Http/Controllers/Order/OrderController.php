@@ -12,7 +12,7 @@ class OrderController extends Controller
     public function unifiedOrder(){
        //请求参数
         $total_fee=1;
-        $order_id='201902261234599997';
+        $order_id='2019022612345000';
         $order_info=[
             'appid'=>env('WEIXIN_APPID_0'),//微信支付绑定的服务号的APPID
             'mch_id'=>env('WEIXIN_MCH_ID'), //商户ID
@@ -33,7 +33,6 @@ class OrderController extends Controller
         $res = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
         $data =  simplexml_load_string($res);
         echo $data->code_url;
-        exit;
     }
     public function SetSign()
     {
