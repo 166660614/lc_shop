@@ -12,7 +12,7 @@ class OrderController extends Controller
     public function unifiedOrder(){
        //请求参数
         $total_fee=1;
-        $order_id='20190226123456897';
+        $order_id='201902261234599997';
         $order_info=[
             'appid'=>env('WEIXIN_APPID_0'),//微信支付绑定的服务号的APPID
             'mch_id'=>env('WEIXIN_MCH_ID'), //商户ID
