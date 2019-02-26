@@ -8,8 +8,8 @@ use App\Http\Controllers\Controller;
 class OrderController extends Controller
 {
     public $weixin_unifiedorder_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
-    public $weixin_notify_url = 'http://lcshop.52self.cn/weixin/pay/notice';     //支付通知回调
-    public function unifieldOrder(){
+    public $weixin_notify_url = 'http://lcshop.52self.cn/weixin/pay/notify';     //支付通知回调
+    public function unifiedOrder(){
        //请求参数
         $total_fee=1;
         $order_id='20190226123456789';
