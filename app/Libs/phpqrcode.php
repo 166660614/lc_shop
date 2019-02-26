@@ -74,9 +74,9 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
     namespace App\Libs;
-	// Encoding modes
-	 
-	define('QR_MODE_NUL', -1);
+    use Exception;
+
+    define('QR_MODE_NUL', -1);
 	define('QR_MODE_NUM', 0);
 	define('QR_MODE_AN', 1);
 	define('QR_MODE_8', 2);

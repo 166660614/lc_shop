@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Order;
 
+use App\Libs\QRcode;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use QRcode;
 class OrderController extends Controller
 {
     public $weixin_unifiedorder_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
@@ -38,8 +38,8 @@ class OrderController extends Controller
         $errorCorrectionLevel = 'H';//容错级别
         $matrixPointSize = 7;//图片大小
         $qr = rand(10000,99999).time().".png";
-        $picture=\QRcode::png($url, $qr, $errorCorrectionLevel, $matrixPointSize, 2);//2代表白边宽度
-        echo $picture;
+        $picture=QRcode::png($url, $qr, $errorCorrectionLevel, $matrixPointSize, 2);//2代表白边宽度
+        echo $picture;exit;
 
     }
     public function SetSign()
