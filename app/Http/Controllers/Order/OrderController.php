@@ -13,12 +13,10 @@ class OrderController extends Controller
        //请求参数
         $total_fee=1;
         $order_id='20190226123456789';
-        $this->values = [];
         $order_info=[
             'appid'=>env('WEIXIN_APPID_0'),//微信支付绑定的服务号的APPID
             'mch_id'=>env('WEIXIN_MCH_ID'), //商户ID
             'nonce_str'=>str_random(16), //随机字符串
-            'sign'=>$this->SetSign(),
             'sign_type'     => 'ylc',
             'body'          => '筱川订单-'.mt_rand(1111,9999) . str_random(6),
             'out_trade_no'  => $order_id,
@@ -27,7 +25,9 @@ class OrderController extends Controller
             'notify_url'=>$this->weixin_notify_url,
 
         ];
+        $this->values = [];
         $this->values = $order_info;
+        $this->SetSign();
         $xml=$this->toXml();//将数组转化为xml
         $res = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
 
@@ -37,6 +37,7 @@ class OrderController extends Controller
     public function SetSign()
     {
         $sign = $this->MakeSign();
+        $this->values['sign'] = $sign;
         return $sign;
     }
     private function MakeSign()
