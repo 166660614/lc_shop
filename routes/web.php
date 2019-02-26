@@ -33,3 +33,7 @@ Route::get('/weixin/create_menus','Weixin\IndexController@zdyMenus');//创建自
 Route::get('/weixin/del_menus','Weixin\IndexController@delMenus');//删除自定义菜单
 Route::get('/weixin/send_all_content','Weixin\IndexController@sendTextAll');//群发成功
 Route::get('/weixin/clearapi','Weixin\IndexController@clearApi');//群发成功
+
+//微信支付
+Route::get('/weixin/pay/unifield','Order\OrderController@unifieldOrder');     //微信支付下单
+Route::post('/weixin/pay/notify','Order\OrderController@notify');//微信支付异步回调
