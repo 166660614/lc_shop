@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Http\Controllers\Order;
-
 use App\Libs\QRcode;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+header('Content-Type: image/png');
 class OrderController extends Controller
 {
     public $weixin_unifiedorder_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
@@ -38,8 +37,9 @@ class OrderController extends Controller
         $errorCorrectionLevel = 'H';//容错级别
         $matrixPointSize = 7;//图片大小
         $qr = rand(10000,99999).time().".png";
-        $picture=QRcode::png($url, $qr, $errorCorrectionLevel, $matrixPointSize, 2);//2代表白边宽度
-        var_dump($picture);exit;
+        ob_clean();
+        $picture=QRcode::png($url, false, $errorCorrectionLevel, $matrixPointSize, 2);//2代表白边宽度
+        return view('weixin.wxqrcode')->with('picture',$picture);
 
     }
     public function SetSign()
