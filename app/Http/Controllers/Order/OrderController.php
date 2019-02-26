@@ -12,7 +12,7 @@ class OrderController extends Controller
     public function unifiedOrder(){
        //请求参数
         $total_fee=1;
-        $order_id='20190226123466665000';
+        $order_id='201902261234'.mt_rand(1111,9999);
         $order_info=[
             'appid'=>env('WEIXIN_APPID_0'),//微信支付绑定的服务号的APPID
             'mch_id'=>env('WEIXIN_MCH_ID'), //商户ID
@@ -32,17 +32,14 @@ class OrderController extends Controller
         $xml=$this->toXml();//将数组转化为xml
         $res = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
         $data =  simplexml_load_string($res);
-        var_dump($data);exit;
-        echo 1;exit;
         //生成二维码图片
         $url=$data->code_url;
         //echo $url;exit;
-        //$qrcode=new phpqrcode();
         $errorCorrectionLevel = 'H';//容错级别
         $matrixPointSize = 7;//图片大小
         $qr = rand(10000,99999).time().".png";
         $picture=QRcode::png($url, $qr, $errorCorrectionLevel, $matrixPointSize, 2);//2代表白边宽度
-        echo $picture;exit;
+        var_dump($picture);exit;
 
     }
     public function SetSign()
