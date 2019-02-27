@@ -31,7 +31,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                        <h3>Iphone X 一台&nbsp;价格1</h3>
+                        <h3>Iphone X</h3>
+                        <h5s>价格：10000元/台</h5s>
+                        <h5>数量：1 台</h5>
                         <a type="button" class="btn btn-info" href="/weixin/pay/unified">点击付款</a>
                 </div>
             </div>
