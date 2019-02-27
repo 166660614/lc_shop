@@ -31,8 +31,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    您已登录!
+                        <h3>Iphone X 一台&nbsp;价格1</h3>
+                        <a type="button" class="btn btn-info" href="/weixin/pay/unified">点击付款</a>
                 </div>
             </div>
         </div>
