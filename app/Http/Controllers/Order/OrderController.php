@@ -33,7 +33,10 @@ class OrderController extends Controller
         $data =  simplexml_load_string($res);
         //生成二维码图片
         $url=$data->code_url;
-        return view('weixin.wxqrcode')->with('url',$url);
+        $arr=[
+            'url'=>$url,
+        ];
+        return view('weixin.wxqrcode',$arr);
         //echo $url;exit;
         /*$errorCorrectionLevel = 'H';//容错级别
         $matrixPointSize = 7;//图片大小
