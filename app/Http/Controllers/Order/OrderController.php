@@ -33,13 +33,14 @@ class OrderController extends Controller
         $data =  simplexml_load_string($res);
         //生成二维码图片
         $url=$data->code_url;
+        return view('weixin.wxqrcode')->with('url',$url);
         //echo $url;exit;
-        $errorCorrectionLevel = 'H';//容错级别
+        /*$errorCorrectionLevel = 'H';//容错级别
         $matrixPointSize = 7;//图片大小
         $qr = rand(10000,99999).time().".png";
         ob_clean();
         $picture=QRcode::png($url, false, $errorCorrectionLevel, $matrixPointSize, 2);//2代表白边宽度
-        return view('weixin.wxqrcode')->with('picture',$picture);
+        return view('weixin.wxqrcode')->with('picture',$picture);*/
 
     }
     public function SetSign()
