@@ -28,6 +28,7 @@ class IndexController extends Controller
         $openid = $xml->FromUserName; //用户openid
         //$sub_time = $xml->CreateTime; //关注时间
         $user_info = $this->getUserInfo($openid);//获取用户信息
+        print_r($user_info);exit;
         if (isset($MsgType)) {
             if ($MsgType == 'event') {
                 if ($event == 'subscribe') {
