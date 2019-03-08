@@ -37,3 +37,5 @@ Route::get('/weixin/clearapi','Weixin\IndexController@clearApi');//群发成功
 //微信支付
 Route::get('/weixin/pay/unified','Order\OrderController@unifiedOrder');     //微信支付下单
 Route::post('/weixin/pay/notify','Order\OrderController@notify');//微信支付异步回调
+
+Route::get('/weixin/view','Weixin\IndexController@viewRedisUsers');//redis列表
