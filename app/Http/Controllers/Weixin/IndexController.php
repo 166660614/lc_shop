@@ -28,12 +28,14 @@ class IndexController extends Controller
         $openid = $xml->FromUserName; //用户openid
         //$sub_time = $xml->CreateTime; //关注时间
         $user_info = $this->getUserInfo($openid);//获取用户信息
-        print_r($user_info);exit;
         if (isset($MsgType)) {
             if ($MsgType == 'event') {
                 if ($event == 'subscribe') {
                     //Redis 缓存用户数据
                     Redis::set('userinfo',$user_info);
+                    $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</C    reateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[欢迎关注本公众号！]]></Content></xml>';
+                    echo $xml_response;
+
                 }
             }
         }
@@ -67,5 +69,52 @@ class IndexController extends Controller
         $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
         $data = json_decode(file_get_contents($url),true);
         return $data;
+    }
+    //黑名单
+    public function getBlackList(){
+        $url="https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=".$this->getAccessToken();
+        $array=[];
+        $data=[
+            'openid_list'=>$array
+        ];
+        $client = new GuzzleHttp\Client(['base_uri' => $url]);
+        $r=$client->request('post',$url,['body'=>json_encode($data,JSON_UNESCAPED_UNICODE)]);
+        //解析接口返回信息
+        $response_arr=json_decode($r->getBody(),true);
+        if($response_arr['errcode']){
+            $res=[
+                'msg'=>'加入黑名单成功',
+                'code'=>0
+            ];
+        }else{
+            $res=[
+              'msg'=>$response_arr['errmsg'],
+              'code'=>1
+            ];
+        }
+    }
+    //加入用户标签
+    public function addTag(){
+        $url="https://api.weixin.qq.com/cgi-bin/tags/create?access_token=".$this->getAccessToken();
+        $data=[
+            'tag'=>[
+                'name=>"广东'
+            ]
+        ];
+        $client = new GuzzleHttp\Client(['base_uri' => $url]);
+        $r=$client->request('post',$url,['body'=>json_encode($data,JSON_UNESCAPED_UNICODE)]);
+        //解析接口返回信息
+        $response_arr=json_decode($r->getBody(),true);
+        if($response_arr['errcode']){
+            $res=[
+                'msg'=>'添加标签成功',
+                'code'=>0
+            ];
+        }else{
+            $res=[
+                'msg'=>$response_arr['errmsg'],
+                'code'=>1
+            ];
+        }
     }
 }
