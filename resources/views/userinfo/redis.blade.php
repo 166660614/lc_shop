@@ -6,9 +6,9 @@
     </tr>
     @foreach($userinfo as $v)
     <tr>
-        <td>{{$userinfo['openid']}}</td>
-        <td>{{$userinfo['nickname']}}</td>
-        <td>{{$userinfo['sex']}}</td>
+        <td>{{$v['openid']}}</td>
+        <td>{{$v['nickname']}}</td>
+        <td>{{$v['sex']}}</td>
     </tr>
     @endforeach
 </table>
