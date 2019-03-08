@@ -33,7 +33,7 @@ class IndexController extends Controller
                 if ($event == 'subscribe') {
                     //Redis 缓存用户数据
                     Redis::set('userinfo',$user_info);
-                    $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</C    reateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[欢迎关注本公众号！]]></Content></xml>';
+                    $xml_response = '<xml><ToUserName><![CDATA['.$openid .']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName .']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[欢迎关注本公众号]]></Content></xml>';
                     echo $xml_response;
                 }
             }
@@ -43,10 +43,14 @@ class IndexController extends Controller
     }
     public function viewRedisUsers(){
         $userinfo=Redis::get('userinfo');
-        $userinfo=json_decode($userinfo,true);
-        $data=[
-            'userinfo'=>$userinfo
-        ];
+        $userinfo=[];
+        if(!$userinfo){
+            $userinfo=json_decode($userinfo,true);
+            $data=[
+                'userinfo'=>$userinfo
+            ];
+        }
+
         return view('userinfo.redis',$data);
     }
     //获取AccessToken
