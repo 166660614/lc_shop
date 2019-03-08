@@ -46,6 +46,7 @@ class IndexController extends Controller
         $data=[
           'userinfo'=>$userinfo
         ];
+        $data=json_decode($data,true);
         return view('userinfo.redis',$data);
     }
     //获取AccessToken
