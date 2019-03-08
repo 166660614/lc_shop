@@ -4,11 +4,9 @@
         <td>用户昵称</td>
         <td>性别</td>
     </tr>
-    @foreach($userinfo as $k=>$v)
     <tr>
-        <td>{{$v['openid']}}</td>
-        <td>{{$v['nickname']}}</td>
-        <td>{{$v['sex']}}</td>
+        <td>{{$userinfo['openid']}}</td>
+        <td>{{$userinfo['nickname']}}</td>
+        <td>{{$userinfo['sex']}}</td>
     </tr>
-    @endforeach
 </table>
