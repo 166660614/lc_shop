@@ -43,10 +43,7 @@ class IndexController extends Controller
     }
     public function viewRedisUsers(){
         $userinfo=Redis::get('userinfo');
-        $data=[
-          'userinfo'=>$userinfo
-        ];
-        $data=json_decode($data,true);
+        $data=json_decode($userinfo,true);
         return view('userinfo.redis',$data);
     }
     //获取AccessToken
