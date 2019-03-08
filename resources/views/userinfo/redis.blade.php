@@ -1,15 +1,14 @@
 <table>
     <tr>
-        <td>用户id</td>
+        <td>oppenid</td>
         <td>用户昵称</td>
-        <td>关注时间</td>
+        <td>性别</td>
     </tr>
     @foreach($userinfo as $v)
     <tr>
+        <td>{{$userinfo['oppenid']}}</td>
         <td>{{$userinfo['nickname']}}</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{$userinfo['sex']}}</td>
     </tr>
     @endforeach
 </table>
