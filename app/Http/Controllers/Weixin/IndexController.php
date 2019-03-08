@@ -94,7 +94,7 @@ class IndexController extends Controller
         }
         echo json_encode($res);
     }
-    //加入用户标签
+    //添加用户标签
     public function addTag(Request $request){
         $url="https://api.weixin.qq.com/cgi-bin/tags/create?access_token=".$this->getAccessToken();
         $tag_name=$request->input('tag_name');
@@ -107,9 +107,9 @@ class IndexController extends Controller
         $r=$client->request('post',$url,['body'=>json_encode($data,JSON_UNESCAPED_UNICODE)]);
         //解析接口返回信息
         $response_arr=json_decode($r->getBody(),true);
-        if($response_arr['errcode']){
+        if($response_arr['id']){
             $res=[
-                'msg'=>'添加标签成功',
+                'msg'=>'加入黑名单成功',
                 'code'=>0
             ];
         }else{
@@ -118,5 +118,10 @@ class IndexController extends Controller
                 'code'=>1
             ];
         }
+        echo json_encode($res);
     }
+//    public function getTag(){
+//        $url="https://api.weixin.qq.com/cgi-bin/tags/get?access_token=".$this->getAccessToken();
+//
+//    }
 }
