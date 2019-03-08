@@ -107,6 +107,7 @@ class IndexController extends Controller
         $r=$client->request('post',$url,['body'=>json_encode($data,JSON_UNESCAPED_UNICODE)]);
         //解析接口返回信息
         $response_arr=json_decode($r->getBody(),true);
+        var_dump($response_arr);exit;
         if($response_arr['id']){
             $res=[
                 'msg'=>'加入黑名单成功',
