@@ -92,6 +92,7 @@ class IndexController extends Controller
               'code'=>1
             ];
         }
+        echo json_encode($res);
     }
     //加入用户标签
     public function addTag(Request $request){
