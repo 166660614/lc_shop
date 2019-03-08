@@ -94,11 +94,12 @@ class IndexController extends Controller
         }
     }
     //加入用户标签
-    public function addTag(){
+    public function addTag(Request $request){
         $url="https://api.weixin.qq.com/cgi-bin/tags/create?access_token=".$this->getAccessToken();
+        $tag_name=$request->input('tag_name');
         $data=[
             'tag'=>[
-                'name=>"广东'
+                'name'=>$tag_name,
             ]
         ];
         $client = new GuzzleHttp\Client(['base_uri' => $url]);
