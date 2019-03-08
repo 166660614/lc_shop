@@ -22,7 +22,7 @@
 <script src="/js/jquery-1.12.4.min.js"></script>
 <script>
     $(function () {
-        $(".tag").click(function(e){
+        $("#tag").click(function(e){
             e.preventDefault();
             var tag_name = $('#tag_name').val();
             $.ajax({
