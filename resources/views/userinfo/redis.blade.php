@@ -1,5 +1,5 @@
 <table>
-{{$data}}
+{{$userinfo}}
 </table>
 <table>
     <tr>
