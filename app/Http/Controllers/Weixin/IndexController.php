@@ -107,15 +107,14 @@ class IndexController extends Controller
         $r=$client->request('post',$url,['body'=>json_encode($data,JSON_UNESCAPED_UNICODE)]);
         //解析接口返回信息
         $response_arr=json_decode($r->getBody(),true);
-        var_dump($response_arr);exit;
-        if($response_arr['id']){
+        if($response_arr['tag']['id']){
             $res=[
-                'msg'=>'加入黑名单成功',
+                'msg'=>"你添加的标签是".$response_arr['tag']['name'],
                 'code'=>0
             ];
         }else{
             $res=[
-                'msg'=>$response_arr['errmsg'],
+                'msg'=>"添加标签失败",
                 'code'=>1
             ];
         }
