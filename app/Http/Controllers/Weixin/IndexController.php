@@ -106,7 +106,6 @@ class IndexController extends Controller
         $r=$client->request('post',$url,['body'=>json_encode($data,JSON_UNESCAPED_UNICODE)]);
         //解析接口返回信息
         $response_arr=json_decode($r->getBody(),true);
-        print_r($response_arr);exit;
         if($response_arr['errcode']){
             $res=[
                 'msg'=>'添加标签成功',
