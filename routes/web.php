@@ -39,4 +39,5 @@ Route::get('/weixin/pay/unified','Order\OrderController@unifiedOrder');     //�
 Route::post('/weixin/pay/notify','Order\OrderController@notify');//微信支付异步回调
 
 Route::get('/weixin/view','Weixin\IndexController@viewRedisUsers');//redis列表
-Route::post('/weixin/tag','Weixin\IndexController@addTag');
+Route::post('/weixin/tag','Weixin\IndexController@addTag'); //标签
+Route::post('/weixin/blacklist','Weixin\IndexController@getBlackList');//黑名单

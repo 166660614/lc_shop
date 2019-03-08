@@ -71,9 +71,9 @@ class IndexController extends Controller
         return $data;
     }
     //黑名单
-    public function getBlackList(){
+    public function getBlackList(Request $request){
         $url="https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=".$this->getAccessToken();
-        $array=[];
+        $array=$request->input('openid');
         $data=[
             'openid_list'=>$array
         ];

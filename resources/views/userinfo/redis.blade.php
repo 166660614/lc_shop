@@ -7,7 +7,7 @@
         <td>性别</td>
         <td>操作</td>
     </tr>
-    <tr>
+    <tr openid="$userinfo['openid']">
         <td><input type="checkbox"></td>
         <td>{{$userinfo['openid']}}</td>
         <td>{{$userinfo['nickname']}}</td>
@@ -32,6 +32,24 @@
                 url     :   '/weixin/tag',
                 type    :   'post',
                 data    :   {tag_name:tag_name},
+                dataType:   'json',
+                success :   function(res){
+                    alert(res.msg)
+                    window.location.reload();
+                }
+            });
+        });
+        $("#blacklist").click(function(e){
+            e.preventDefault();
+            _this=$(this);
+            var openid = _this.parents('tr').attr('openid');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url     :   '/weixin/blacklist',
+                type    :   'post',
+                data    :   {openid:openid},
                 dataType:   'json',
                 success :   function(res){
                     alert(res.msg)
