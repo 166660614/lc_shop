@@ -35,11 +35,10 @@ class IndexController extends Controller
                     Redis::set('userinfo',$user_info);
                     $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</C    reateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[欢迎关注本公众号！]]></Content></xml>';
                     echo $xml_response;
-
                 }
             }
         }
-        $log_str = date('Y-m-d H:i:s') . "\n" . $postdata .$openid. "\n<<<<<<<";
+        $log_str = date('Y-m-d H:i:s') . "\n" . $postdata .$user_info."\n<<<<<<<";
         file_put_contents('logs/wx_event.log', $log_str, FILE_APPEND);
     }
     public function viewRedisUsers(){
